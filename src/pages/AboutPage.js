@@ -43,10 +43,9 @@ export function renderAboutPage() {
         <div class="about-page__hero">
           <div class="about-page__hero-left reveal-left">
             ${SectionOverline('01', 'ABOUT US', 'reveal-up')}
-            <h1 class="about-page__hero-heading" style="font-family: var(--font-display); font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; margin-bottom: 2rem; text-transform: uppercase;">
-              SECURING<br/>
-              TOMORROW<br/>
-              ${OutlineWord('TOGETHER.')}
+            <h1 class="hero-v2__title" style="margin-bottom: 2rem; display: flex; flex-direction: column;">
+              <span class="hero-v2__line1 scramble-text">SECURING TOMORROW</span>
+              <span class="hero-v2__line2 outline-word">TOGETHER.</span>
             </h1>
             <p class="about-page__main-desc reveal-up">
               Cybersecurity OWASP Consortium, MANIT Bhopal is a student-driven community dedicated to promoting cybersecurity awareness, learning and innovation.

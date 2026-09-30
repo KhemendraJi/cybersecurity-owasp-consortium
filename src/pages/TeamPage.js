@@ -64,8 +64,9 @@ export function renderTeamPage() {
         <!-- PAGE HERO -->
         <div class="team-hero reveal-up" style="margin-bottom:4rem;">
           ${SectionOverline('01', 'OUR PEOPLE', 'reveal-up')}
-          <h1 class="team-hero__heading" style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); line-height: 0.9; margin-bottom: 2rem; text-transform: uppercase;">
-            THE HUMANS<br/>BEHIND THE ${OutlineWord('MISSION.')}
+          <h1 class="hero-v2__title" style="margin-bottom: 2rem;">
+            <span class="hero-v2__line1 scramble-text">THE HUMANS</span>
+            <span class="hero-v2__line2 outline-word">BEHIND THE MISSION.</span>
           </h1>
           <p class="team-hero__desc" style="max-width:600px; color:var(--color-text-secondary); margin-bottom:4rem;">A diverse community of students, mentors, and cybersecurity enthusiasts working together to make the web safer.</p>
           
@@ -89,7 +90,7 @@ export function renderTeamPage() {
         <!-- FACULTY -->
         <div id="faculty">
           ${sectionHeader('FACULTY ADVISORS', `${faculty.length} members`)}
-          <div class="team-faculty-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+          <div class="team-grid--faculty">
             ${faculty.map((f, i) => `
               <div class="team-faculty-card border-draw reveal-up" style="--delay:${i * 0.08}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); display:flex; flex-direction:column; gap:1.5rem; padding:2.5rem; align-items:center; text-align:center;">
                 <img src="${f.image || getAvatar(f.name)}" alt="${f.name}" loading="lazy" style="width:160px; height:160px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.9); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0) brightness(1.1)'" onmouseout="this.style.filter='grayscale(1) brightness(0.9)'" />
@@ -106,7 +107,7 @@ export function renderTeamPage() {
         <!-- FINAL YEAR LEADS -->
         <div id="leads">
           ${sectionHeader('FINAL YEAR LEADS', `${finalYear.length} members`)}
-          <div class="team-grid team-grid--leads" style="display:grid; grid-template-columns:repeat(5, 1fr); gap:1.5rem;">
+          <div class="team-grid--final">
             ${finalYear.map((m, i) => `
               <div class="team-member-card reveal-up" style="--delay:${i * 0.05}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.03); backdrop-filter:blur(5px); display:flex; flex-direction:column; padding:1.5rem; align-items:center; text-align:center; position:relative;">
                 <div style="position:absolute; top:0.5rem; right:0.5rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">ID_${Math.floor(Math.random()*9000)+1000}</div>
@@ -121,7 +122,7 @@ export function renderTeamPage() {
         <!-- CORE TEAM -->
         <div id="core">
           ${sectionHeader('CORE TEAM', `${coreTeam.length} members`)}
-          <div class="team-grid team-grid--core" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:2rem; perspective:1000px;">
+          <div class="team-grid--core" style="perspective:1000px;">
             ${coreTeam.map((m, i) => `
               <div class="core-card-wrap reveal-up" style="--delay:${i * 0.05}s; width:100%; height:280px; position:relative; transform-style:preserve-3d; transition:transform 0.6s; cursor:pointer;" onmouseover="this.style.transform='rotateY(180deg)'" onmouseout="this.style.transform='rotateY(0deg)'">
                 <div style="position:absolute; inset:0; backface-visibility:hidden; border:1px solid var(--color-border); background:rgba(255,255,255,0.02); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.5rem;">
@@ -149,7 +150,7 @@ export function renderTeamPage() {
               });
             " />
           </div>
-          <div class="team-grid team-grid--members" style="display:grid; grid-template-columns:repeat(6, 1fr); gap:1rem;">
+          <div class="team-grid--members">
             ${members.map((m, i) => `
               <div class="member-chip reveal-up" style="--delay:${(i%10) * 0.02}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.02); padding:0.5rem; display:flex; align-items:center; gap:0.75rem;">
                 <img src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" style="width:32px; height:32px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.8);" />

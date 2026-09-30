@@ -43,8 +43,9 @@ export function renderSponsorsPage() {
         <!-- HERO -->
         <div class="sponsors-hero reveal-up" style="border-bottom:1px solid var(--color-border); padding-bottom:4rem; margin-bottom:4rem;">
           ${SectionOverline('01', 'NETWORK PARTNERS', 'reveal-up')}
-          <h1 class="sponsors-hero__heading" style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); line-height: 0.9; margin-bottom: 2rem; text-transform: uppercase;">
-            OUR ${OutlineWord('SPONSORS')}
+          <h1 class="hero-v2__title" style="margin-bottom: 2rem;">
+            <span class="hero-v2__line1 scramble-text">OUR</span>
+            <span class="hero-v2__line2 outline-word">SPONSORS</span>
           </h1>
           <p class="sponsors-hero__desc" style="max-width:600px; color:var(--color-text-secondary);">
             We thank our partners and sponsors for supporting the cybersecurity community at MANIT Bhopal. Their backing makes every event, workshop, and competition possible.
@@ -63,7 +64,7 @@ export function renderSponsorsPage() {
                 </div>
               </div>
             </div>
-            <div class="sponsors-logos-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;">
+            <div class="sponsors-tier__logos">
               ${tier.partners.map(p => `
                 <div class="sponsors-logo-card border-draw" style="padding:2rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; border:1px solid var(--color-border); background:rgba(255,255,255,0.02);">
                   <img src="${p.logo}" alt="${p.name}" class="sponsors-logo-card__img" style="filter:grayscale(1) brightness(2.5); transition:filter 0.3s; width:80px; height:80px; object-fit:contain; opacity:0.85;" onmouseover="this.style.filter='grayscale(0) brightness(1)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) brightness(2.5)';this.style.opacity='0.85'" />
@@ -84,22 +85,22 @@ export function renderSponsorsPage() {
             </p>
           </div>
 
-          <div class="sponsors-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+          <form id="sponsor-form" class="sponsor-form__row">
             <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
               <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">COMPANY NAME</label>
-              <input type="text" class="cf-input" placeholder="Acme Corp" id="sp-company" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
+              <input type="text" class="cf-input" placeholder="Acme Corp" id="sp-company" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
             </div>
             <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
               <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">CONTACT EMAIL</label>
-              <input type="email" class="cf-input" placeholder="contact@company.com" id="sp-email" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
+              <input type="email" class="cf-input" placeholder="contact@company.com" id="sp-email" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
             </div>
             <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
               <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">CONTACT PERSON</label>
-              <input type="text" class="cf-input" placeholder="Jane Smith" id="sp-contact" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
+              <input type="text" class="cf-input" placeholder="Jane Smith" id="sp-contact" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
             </div>
             <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
               <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">TIER INTEREST</label>
-              <select class="cf-input cf-select" id="sp-tier" style="background:var(--color-black); border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;">
+              <select class="cf-input cf-select" id="sp-tier" required style="background:var(--color-black); border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;">
                 <option value="">— Select a tier —</option>
                 <option value="platinum">Tier 01 // Platinum</option>
                 <option value="gold">Tier 02 // Gold</option>
@@ -109,15 +110,15 @@ export function renderSponsorsPage() {
             </div>
             <div class="cf-group cf-group--full" style="grid-column: 1 / -1; display:flex; flex-direction:column; gap:0.5rem;">
               <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">MESSAGE</label>
-              <textarea class="cf-input cf-textarea" placeholder="Tell us about your company and what kind of collaboration you're looking for..." id="sp-message" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0; min-height:150px;"></textarea>
+              <textarea class="cf-input cf-textarea" placeholder="Tell us about your company and what kind of collaboration you're looking for..." id="sp-message" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0; min-height:150px;"></textarea>
             </div>
             <div class="cf-submit cf-group--full" style="grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center;">
-              <button class="btn btn--outline" type="button" id="sp-submit">
+              <button class="btn btn--outline" type="submit" id="sp-submit">
                 SUBMIT APPLICATION →
               </button>
               <span class="cf-note" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">Response within 48 hours</span>
             </div>
-          </div>
+          </form>
         </div>
 
       </div>
