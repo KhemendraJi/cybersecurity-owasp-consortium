@@ -54,10 +54,10 @@ export function renderEventsPage() {
               <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--color-text-dim);">${nextEvent.day} ${nextEvent.month} ${nextEvent.year} | LOC // ${nextEvent.location}</div>
             </div>
             <div id="countdown" data-date="${nextEvent.date}" style="display:flex; gap:1.5rem; text-align:center;">
-              <div><div id="cd-d" style="font-family:var(--font-display); font-size:2.5rem; color:var(--color-white); line-height:1;">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">DAYS</div></div>
-              <div><div id="cd-h" style="font-family:var(--font-display); font-size:2.5rem; color:var(--color-white); line-height:1;">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">HOURS</div></div>
-              <div><div id="cd-m" style="font-family:var(--font-display); font-size:2.5rem; color:var(--color-white); line-height:1;">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">MINS</div></div>
-              <div><div id="cd-s" style="font-family:var(--font-display); font-size:2.5rem; color:var(--color-white); line-height:1;">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">SECS</div></div>
+              <div><div id="cd-d" class="cd-digit">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">DAYS</div></div>
+              <div><div id="cd-h" class="cd-digit">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">HOURS</div></div>
+              <div><div id="cd-m" class="cd-digit">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">MINS</div></div>
+              <div><div id="cd-s" class="cd-digit">00</div><div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">SECS</div></div>
             </div>
           </div>
           `;
@@ -92,7 +92,7 @@ export function renderEventsPage() {
                 <div style="margin-bottom:1rem; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">
                   <span>ENTRY_${String(i + 1).padStart(3, '0')}</span>
                   <span style="border:1px solid var(--color-border); padding:0.15rem 0.4rem;">${event.category}</span>
-                  <span>● UPCOMING</span>
+                  <span class="status-chip"><span class="status-chip__dot"></span>UPCOMING</span>
                 </div>
                 <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); margin-bottom:0.5rem;">${event.day} ${event.month} ${event.year}</div>
                 <h4 style="margin-bottom:0.5rem; font-family:var(--font-display); font-size:1.4rem; text-transform:uppercase; line-height:1.1;">${event.title}</h4>

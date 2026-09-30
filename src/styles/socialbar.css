@@ -2,7 +2,7 @@
 
 .social-bar {
   position: fixed;
-  right: 0;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   z-index: var(--z-social);
@@ -12,7 +12,6 @@
   gap: 0.5rem;
   background: var(--color-surface);
   border: 2px solid rgba(255, 255, 255, 0.6);
-  border-right: none;
   border-radius: 0;
   padding: 0.5rem;
   transition: opacity var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
@@ -21,7 +20,7 @@
 .social-bar--hidden {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-50%) translateX(20px);
+  transform: translateY(-50%) translateX(32px);
 }
 
 .social-bar__line {

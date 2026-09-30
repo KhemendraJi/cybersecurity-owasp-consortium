@@ -85,32 +85,40 @@ export function renderSponsorsPage() {
             </p>
           </div>
 
-          <form id="sponsor-form" class="sponsor-form__row">
-            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
-              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">COMPANY NAME</label>
-              <input type="text" class="cf-input" placeholder="Acme Corp" id="sp-company" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
+          <div id="sponsor-success" class="form-success-state">
+            APPLICATION RECEIVED // WE WILL RESPOND WITHIN 48 HOURS.
+          </div>
+          <form id="sponsor-form" class="sponsor-form__row" onsubmit="event.preventDefault(); document.getElementById('sponsor-success').classList.add('active'); this.reset();">
+            <div class="cf-group" style="position:relative;">
+              <input type="text" class="cf-input" id="sp-company" placeholder=" " required style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;" />
+              <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">COMPANY NAME</label>
+              <span class="cf-validation">Required</span>
             </div>
-            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
-              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">CONTACT EMAIL</label>
-              <input type="email" class="cf-input" placeholder="contact@company.com" id="sp-email" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
+            <div class="cf-group" style="position:relative;">
+              <input type="email" class="cf-input" id="sp-email" placeholder=" " required style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;" />
+              <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">CONTACT EMAIL</label>
+              <span class="cf-validation">Invalid Email</span>
             </div>
-            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
-              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">CONTACT PERSON</label>
-              <input type="text" class="cf-input" placeholder="Jane Smith" id="sp-contact" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
+            <div class="cf-group" style="position:relative;">
+              <input type="text" class="cf-input" id="sp-contact" placeholder=" " required style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;" />
+              <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">CONTACT PERSON</label>
+              <span class="cf-validation">Required</span>
             </div>
-            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
-              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">TIER INTEREST</label>
-              <select class="cf-input cf-select" id="sp-tier" required style="background:var(--color-black); border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;">
-                <option value="">— Select a tier —</option>
+            <div class="cf-group" style="position:relative;">
+              <select class="cf-input cf-select" id="sp-tier" required style="width:100%; background:var(--color-black); border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;">
+                <option value="" disabled selected hidden></option>
                 <option value="platinum">Tier 01 // Platinum</option>
                 <option value="gold">Tier 02 // Gold</option>
                 <option value="community">Tier 03 // Community</option>
                 <option value="custom">Custom Package</option>
               </select>
+              <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">TIER INTEREST</label>
+              <span class="cf-validation">Required</span>
             </div>
-            <div class="cf-group cf-group--full" style="grid-column: 1 / -1; display:flex; flex-direction:column; gap:0.5rem;">
-              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">MESSAGE</label>
-              <textarea class="cf-input cf-textarea" placeholder="Tell us about your company and what kind of collaboration you're looking for..." id="sp-message" required style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0; min-height:150px;"></textarea>
+            <div class="cf-group cf-group--full" style="grid-column: 1 / -1; position:relative; margin-top:1rem;">
+              <textarea class="cf-input cf-textarea" id="sp-message" placeholder=" " required style="width:100%; background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0; min-height:150px; outline:none; resize:vertical;"></textarea>
+              <label class="cf-label" style="position:absolute; top:1rem; left:1rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">MESSAGE</label>
+              <span class="cf-validation" style="left:1rem; bottom:-1.25rem;">Required</span>
             </div>
             <div class="cf-submit cf-group--full" style="grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center;">
               <button class="btn btn--outline" type="submit" id="sp-submit">
