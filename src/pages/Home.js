@@ -1,6 +1,7 @@
 // ===== LANDING PAGE (HOME) =====
 import { events } from '../data/events.js';
 import { collaborators } from '../data/collaborators.js';
+import { OutlineWord, StatsTable, ReticleFrame, SectionOverline, BorderGrid } from '../components.js';
 
 export function renderHome() {
   const featuredEvent = events.find(e => e.featured) || events[0];
@@ -8,57 +9,62 @@ export function renderHome() {
 
   return `
     <!-- HERO -->
-    <section class="hero section" id="hero">
-      <div class="hero__content">
-        <h1 class="hero__heading reveal-up">
-          BUILD.<br />
-          BREAK.<br />
-          <span class="accent">SECURE.</span>
-        </h1>
+    <section class="hero-v2 section" id="hero">
+      <div class="container hero-container">
         
-        <hr class="hero__rule" />
-
-        <p class="hero__desc">
-          Building cybersecurity skills,<br/>
-          solving real problems,<br/>
-          and creating a safer digital future.
-        </p>
-
-        <!-- Live stats bar -->
-        <div class="hero__live-stats">
-          <div class="hero__live-stat">
-            <span class="hero__live-stat-num" data-count="200">0+</span>
-            <span class="hero__live-stat-label">Members</span>
-          </div>
-          <span class="hero__live-stat-sep">|</span>
-          <div class="hero__live-stat">
-            <span class="hero__live-stat-num" data-count="15">0+</span>
-            <span class="hero__live-stat-label">Events</span>
-          </div>
-          <span class="hero__live-stat-sep">|</span>
-          <div class="hero__live-stat">
-            <span class="hero__live-stat-num" data-count="5">0+</span>
-            <span class="hero__live-stat-label">Years</span>
-          </div>
-          <span class="hero__live-stat-sep">|</span>
-          <div class="hero__live-stat">
-            <span class="hero__live-stat-num" data-count="50">0+</span>
-            <span class="hero__live-stat-label">Projects</span>
+        <div class="hero-v2__tagrow">
+          <div class="hero-v2__location">SYS // MANIT.AC.IN</div>
+          <div class="hero-v2__clock" id="hero-clock">00:00:00 IST</div>
+        </div>
+        
+        <!-- Main Title -->
+        <div class="hero-v2__title">
+          <span class="hero-v2__line1 scramble-text">CYBERSECURITY</span>
+          <span class="hero-v2__line2">OWASP CONSORTIUM</span>
+        </div>
+        
+        <div class="hero-v2__rule"></div>
+        
+        <div class="hero-v2__desc-row">
+          <p class="hero-v2__desc">
+            MANIT Bhopal's official cybersecurity community. We learn, build, and secure systems through hands-on practice, open-source projects, and CTFs.
+          </p>
+          <div class="hero-v2__ctas">
+            <a href="#/events" class="btn btn--solid magnetic-btn">EXPLORE EVENTS →</a>
+            <a href="#/about" class="btn btn--outline magnetic-btn">JOIN US</a>
           </div>
         </div>
+        
+        <!-- The 3D background handles the visual aesthetic now -->
 
-        <div class="hero__ctas">
-          <a href="#/events" class="btn btn--primary">Explore Events <span class="btn-arrow">→</span></a>
-          <a href="#/contact" class="btn">Join the Community</a>
+        <!-- Stats Strip -->
+        <div class="hero-v2__stats">
+          <div class="hero-v2__stat">
+            <div class="hero-v2__stat-val">
+              <span class="hero-v2__stat-num" data-target="200">0</span>
+              <span class="hero-v2__stat-suffix">+</span>
+            </div>
+            <span class="hero-v2__stat-label">MEMBERS</span>
+          </div>
+          <div class="hero-v2__stat">
+            <div class="hero-v2__stat-val">
+              <span class="hero-v2__stat-num" data-target="15">0</span>
+              <span class="hero-v2__stat-suffix">+</span>
+            </div>
+            <span class="hero-v2__stat-label">EVENTS</span>
+          </div>
+          <div class="hero-v2__stat">
+            <div class="hero-v2__stat-val">
+              <span class="hero-v2__stat-num" data-target="5">0</span>
+              <span class="hero-v2__stat-suffix">+</span>
+            </div>
+            <span class="hero-v2__stat-label">CTF COMPS</span>
+          </div>
+          <div class="hero-v2__scroll-indicator">
+            <div class="hero-v2__scroll-circle">SCROLL</div>
+          </div>
         </div>
-      </div>
-
-      <!-- Hero 3D Tech Element Container -->
-      <div class="hero__3d-container"></div>
-      
-      <div class="hero__scroll scroll-indicator">
-        <span>SCROLL</span>
-        <div class="scroll-indicator__line"></div>
+        
       </div>
     </section>
 
@@ -69,43 +75,39 @@ export function renderHome() {
           <div class="os-window__header">
             <span class="os-window__dot"></span><span class="os-window__dot"></span><span class="os-window__dot"></span>
             <span class="os-window__title">about_us.exe</span>
-            <span style="margin-left:auto;font-family:var(--font-mono);font-size:9px;color:#27c93f;">● RUNNING</span>
+            <span style="margin-left:auto;font-family:var(--font-mono);font-size:9px;color:#ffffff;">● RUNNING</span>
           </div>
           <div class="about__inner">
             <div class="about__image-wrap reveal-left">
-              <img
-                class="about__image"
-                src="https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80"
-                alt="MANIT Bhopal Campus"
-                loading="lazy"
-              />
-              <div class="about__image-corner about__image-corner--tr"></div>
-              <div class="about__image-corner about__image-corner--bl"></div>
+              ${ReticleFrame(`
+                <img
+                  class="about__image"
+                  src="https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80"
+                  alt="MANIT Bhopal Campus"
+                  loading="lazy"
+                  style="filter: grayscale(1) brightness(0.8); transition: filter 0.3s;"
+                  onmouseover="this.style.filter='grayscale(0) brightness(1.1)'"
+                  onmouseout="this.style.filter='grayscale(1) brightness(0.8)'"
+                />
+              `)}
               <span class="about__image-label">SYS // MANIT.BHOPAL.IN</span>
             </div>
             <div class="about__text">
-              <span class="section-overline reveal-up">ABOUT CYBERSECURITY OWASP CONSORTIUM</span>
-              <h2 class="section-title reveal-up">MORE THAN A <span>CLUB.</span></h2>
+              ${SectionOverline('01', 'ABOUT CYBERSECURITY OWASP CONSORTIUM', 'reveal-up')}
+              <h2 class="section-title reveal-up">MORE THAN A ${OutlineWord('CLUB.')}</h2>
               <p class="about__desc reveal-up">
                 A community built around cybersecurity. Cybersecurity OWASP Consortium at MANIT Bhopal focuses on
                 cybersecurity education, practical security research, workshops, open-source
                 projects and community building.
               </p>
-              <div class="about__chips reveal-up">
-                <div class="about__chip">
-                  <span class="about__chip-num">200+</span>
-                  <span class="about__chip-label">MEMBERS</span>
-                </div>
-                <div class="about__chip">
-                  <span class="about__chip-num">15+</span>
-                  <span class="about__chip-label">EVENTS</span>
-                </div>
-                <div class="about__chip">
-                  <span class="about__chip-num">5+</span>
-                  <span class="about__chip-label">YEARS</span>
-                </div>
+              <div class="about__chips reveal-up" style="margin-bottom: 2rem;">
+                ${StatsTable([
+                  { value: '200+', label: 'MEMBERS' },
+                  { value: '15+', label: 'EVENTS' },
+                  { value: '5+', label: 'YEARS' }
+                ])}
               </div>
-              <a href="#/about" class="btn reveal-up">Learn More <span class="btn-arrow">→</span></a>
+              <a href="#/about" class="btn btn--outline reveal-up">LEARN MORE →</a>
             </div>
           </div>
         </div>
@@ -122,42 +124,30 @@ export function renderHome() {
           </div>
           <div>
             <div class="why-section__header" style="padding: 2rem 2rem 0; margin-bottom: 0;">
-              <span class="section-overline reveal-up">OUR PURPOSE</span>
-              <h2 class="section-title reveal-up" style="margin-bottom: 1rem;">WHY WE <span>EXIST</span></h2>
+              ${SectionOverline('02', 'OUR PURPOSE', 'reveal-up')}
+              <h2 class="section-title reveal-up" style="margin-bottom: 1rem;">WHY WE ${OutlineWord('EXIST')}</h2>
             </div>
-            <div class="why-section__grid">
-              <div class="why-card reveal-up" data-process="pid:1001">
+            <div class="why-section__grid" style="padding-top: 1rem;">
+              <div class="why-card">
                 <div class="why-card__header">
                   <span class="why-card__num">PROC_01</span>
-                  <span class="why-card__icon">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                  </span>
                 </div>
                 <h3 class="why-card__title">LEARN</h3>
                 <p class="why-card__desc">Understand security beyond theory. Hands-on workshops, CTFs, and real-world vulnerability research.</p>
-                <hr class="why-card__divider" />
               </div>
-              <div class="why-card reveal-up" data-process="pid:1002">
+              <div class="why-card">
                 <div class="why-card__header">
                   <span class="why-card__num">PROC_02</span>
-                  <span class="why-card__icon">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-                  </span>
                 </div>
                 <h3 class="why-card__title">BUILD</h3>
                 <p class="why-card__desc">Create tools that solve real problems. Open-source security projects, scripts, and automation.</p>
-                <hr class="why-card__divider" />
               </div>
-              <div class="why-card reveal-up" data-process="pid:1003">
+              <div class="why-card">
                 <div class="why-card__header">
                   <span class="why-card__num">PROC_03</span>
-                  <span class="why-card__icon">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                  </span>
                 </div>
                 <h3 class="why-card__title">DEFEND</h3>
                 <p class="why-card__desc">Develop the mindset to secure what we build. Think like an attacker, defend like a professional.</p>
-                <hr class="why-card__divider" />
               </div>
             </div>
           </div>
@@ -177,66 +167,61 @@ export function renderHome() {
           <div style="padding: 2rem;">
             <div class="events-section__header">
               <div class="events-section__header-text">
-                <span class="section-overline reveal-up">UPCOMING EVENTS</span>
-                <h2 class="section-title reveal-up">EVENTS &amp; <span>EXPERIENCES</span></h2>
+                ${SectionOverline('03', 'UPCOMING EVENTS', 'reveal-up')}
+                <h2 class="section-title reveal-up">EVENTS &amp; ${OutlineWord('EXPERIENCES')}</h2>
                 <p class="section-desc reveal-up">Explore workshops, CTFs, technical sessions, hackathons and more.</p>
               </div>
-              <a href="#/events" class="btn reveal-up">View All Events <span class="btn-arrow">→</span></a>
+              <a href="#/events" class="btn btn--outline reveal-up">VIEW ALL EVENTS →</a>
             </div>
 
             <!-- Featured Event -->
             <div class="events__featured reveal-up">
               <div class="event-featured" data-event-id="${featuredEvent.id}">
-                <img
-                  class="event-featured__image"
-                  src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80"
-                  alt="${featuredEvent.title}"
-                  loading="lazy"
-                />
-                <div class="event-featured__overlay">
+                ${ReticleFrame(`
+                  <img
+                    class="event-featured__image"
+                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80"
+                    alt="${featuredEvent.title}"
+                    loading="lazy"
+                    style="filter: grayscale(1) brightness(0.8);"
+                  />
+                `)}
+                <div class="event-featured__overlay" style="background: rgba(0,0,0,0.6); border: 1px solid var(--color-border); padding: 2rem;">
                   <div class="event-featured__top-row">
-                    <span class="event-featured__tag">${featuredEvent.category}</span>
-                    <span class="event-featured__badge">[ FEATURED ]</span>
+                    <span class="event-featured__tag" style="border: 1px solid var(--color-border); padding: 0.25rem 0.5rem;">${featuredEvent.category}</span>
+                    <span class="event-featured__badge" style="font-family: var(--font-mono);">[ FEATURED ]</span>
                   </div>
-                  <span class="event-featured__date">${featuredEvent.day} ${featuredEvent.month} ${featuredEvent.year}</span>
-                  <h3 class="event-featured__title">${featuredEvent.title}</h3>
+                  <span class="event-featured__date" style="font-family: var(--font-mono); letter-spacing: 0.1em;">${featuredEvent.day} ${featuredEvent.month} ${featuredEvent.year}</span>
+                  <h3 class="event-featured__title" style="font-family: var(--font-display); font-size: 2.5rem; text-transform: uppercase;">${featuredEvent.title}</h3>
                   <p class="event-featured__desc">${featuredEvent.description}</p>
-                  <div class="event-featured__meta">
-                    <span>📍 ${featuredEvent.location}</span>
-                    ${featuredEvent.speakers ? `<span>🎤 ${featuredEvent.speakers[0]}</span>` : ''}
+                  <div class="event-featured__meta" style="font-family: var(--font-mono); color: var(--color-text-dim);">
+                    <span>LOC // ${featuredEvent.location}</span>
+                    ${featuredEvent.speakers && featuredEvent.speakers.length > 0 && featuredEvent.speakers[0] && featuredEvent.speakers[0] !== 'undefined' ? `<span>SPK // ${featuredEvent.speakers[0]}</span>` : ''}
                   </div>
-                  <div>
-                    <span class="btn btn--primary" data-event-id="${featuredEvent.id}">Know More <span class="btn-arrow">→</span></span>
+                  <div style="margin-top: 1.5rem;">
+                    <span class="btn btn--outline" data-event-id="${featuredEvent.id}">KNOW MORE →</span>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Other Events Grid — animated cards -->
-            <div class="events__grid">
-              ${upcomingEvents.map((event, i) => `
-                <div class="event-card reveal-up" data-event-id="${event.id}" style="--card-delay:${i * 0.1}s">
-                  <div class="event-card__log-header">
+            <div class="events__grid scroll-track" style="margin-top: 2rem;">
+              ${BorderGrid(upcomingEvents.map((event, i) => ({
+                html: `
+                  <div class="event-card__log-header" style="margin-bottom:1rem; border:none; padding:0; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">
                     <span class="event-card__log-idx">[${String(i + 1).padStart(2, '0')}]</span>
-                    <span class="event-card__tag">${event.category}</span>
-                    <span class="event-card__status event-card__status--upcoming">● UPCOMING</span>
+                    <span class="event-card__tag" style="border:1px solid var(--color-border); padding:0.15rem 0.4rem;">${event.category}</span>
+                    <span class="event-card__status">● UPCOMING</span>
                   </div>
-                  <div class="event-card__top">
-                    <div class="event-card__date-block">
-                      <span class="event-card__date-month">${event.month}</span>
-                      <span class="event-card__date-day">${event.day}</span>
-                    </div>
-                    <div class="event-card__body">
-                      <h4 class="event-card__title">${event.title}</h4>
-                      <p class="event-card__desc">${event.description}</p>
-                    </div>
+                  <h4 class="event-card__title" style="margin-bottom:0.5rem; font-family:var(--font-display); font-size:1.5rem; text-transform:uppercase;">${event.title}</h4>
+                  <p class="event-card__desc" style="color:var(--color-text-secondary); margin-bottom:2rem; font-size:0.9rem;">${event.description}</p>
+                  <div class="event-card__footer" style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); border-top:1px solid var(--color-border); padding-top:1rem;">
+                    <span>LOC // ${event.location}</span>
+                    <span class="event-card__cta" style="cursor:pointer; color:var(--color-white);" data-event-id="${event.id}">DETAILS →</span>
                   </div>
-                  <div class="event-card__footer">
-                    <span class="event-card__location">📍 ${event.location}</span>
-                    <span class="event-card__cta" data-event-id="${event.id}">Details <span class="btn-arrow">→</span></span>
-                  </div>
-                </div>
-              `).join('')}
+                `
+              })))}
             </div>
           </div>
         </div>
@@ -250,12 +235,12 @@ export function renderHome() {
           <div class="os-window__header">
             <span class="os-window__dot"></span><span class="os-window__dot"></span><span class="os-window__dot"></span>
             <span class="os-window__title">network.bat</span>
-            <span style="margin-left:auto;font-family:var(--font-mono);font-size:9px;color:#27c93f;">● CONNECTED</span>
+            <span style="margin-left:auto;font-family:var(--font-mono);font-size:9px;color:#ffffff;">● CONNECTED</span>
           </div>
           <div style="padding: 2rem;">
             <div class="collabs__header">
-              <span class="section-overline reveal-up">CONNECTED BY SECURITY</span>
-              <h2 class="section-title reveal-up"><span>COLLABORATIONS</span></h2>
+              ${SectionOverline('04', 'CONNECTED BY SECURITY', 'reveal-up')}
+              <h2 class="section-title reveal-up">${OutlineWord('COLLABORATIONS')}</h2>
               <p class="section-desc reveal-up" style="margin:0 auto;">Working together for a stronger cybersecurity ecosystem.</p>
             </div>
 
@@ -266,7 +251,7 @@ export function renderHome() {
                 <div class="collabs__hub-ring collabs__hub-ring--2"></div>
                 <span class="collabs__hub-label">OWASP<br/>MANIT</span>
               </div>
-              <div class="collabs__nodes">
+              <div class="collabs__nodes scroll-track">
                 ${collaborators.map((c, i) => `
                   <a href="${c.url}" class="collab-node reveal-scale" style="--i:${i}">
                     <div class="collab-node__logo">
@@ -290,19 +275,80 @@ export function renderHome() {
 
 export function renderFooter() {
   return `
-    <footer class="footer section">
+    <!-- Marquee band above footer -->
+    <div class="marquee-strip marquee-strip--footer">
+      <div class="marquee-strip__track" id="marquee-track">
+        <div class="marquee-strip__inner">
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+        </div>
+        <div class="marquee-strip__inner" aria-hidden="true">
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">LEARN</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">BUILD</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+          <span class="marquee-strip__item marquee-strip__item--solid">SECURE</span>
+          <span class="marquee-strip__item marquee-strip__item--outline">&bull;</span>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <!-- Giant outline OWASP behind footer -->
+      <div class="footer__bg-text" aria-hidden="true">OWASP</div>
       <div class="container">
         <div class="footer__inner">
+          <!-- Brand block -->
           <div class="footer__brand">
             <div class="footer__logo-row">
-              <img class="footer__logo" src="/src/assets/logo.png" alt="OWASP Logo" />
-              <div style="text-align: center;">
+              <img class="footer__logo" src="/src/assets/logo.png" alt="OWASP Logo" style="filter: grayscale(1) brightness(1.2);" />
+              <div>
                 <span class="footer__brand-name">CYBERSECURITY OWASP CONSORTIUM</span>
                 <span class="footer__brand-sub">MANIT BHOPAL</span>
               </div>
             </div>
             <p class="footer__tagline">Learn. Build. Secure.</p>
           </div>
+          <!-- Quick Links -->
           <div>
             <h4 class="footer__col-title">Quick Links</h4>
             <div class="footer__links">
@@ -312,20 +358,28 @@ export function renderFooter() {
               <a href="#/sponsors" class="footer__link">Sponsors</a>
             </div>
           </div>
+          <!-- More -->
           <div>
             <h4 class="footer__col-title">More</h4>
             <div class="footer__links">
               <a href="#/team" class="footer__link">Team</a>
+              <a href="#/gallery" class="footer__link">Gallery</a>
               <a href="#/contact" class="footer__link">Contact Us</a>
             </div>
           </div>
+          <!-- Contact + Social -->
           <div>
+            <h4 class="footer__col-title">Contact</h4>
+            <div class="footer__links" style="margin-bottom:1.5rem;">
+              <a href="mailto:owasp.chap.manit@gmail.com" class="footer__link">owasp.chap.manit@gmail.com</a>
+              <span class="footer__link" style="cursor:default;">MANIT Bhopal, Madhya Pradesh</span>
+            </div>
             <h4 class="footer__col-title">Follow Us</h4>
             <div class="footer__social">
-              <a href="https://instagram.com" target="_blank" rel="noopener" class="footer__social-icon" aria-label="Instagram">
+              <a href="https://instagram.com/owasp_nitb" target="_blank" rel="noopener" class="footer__social-icon" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer__social-icon" aria-label="LinkedIn">
+              <a href="https://linkedin.com/company/owaspnitb" target="_blank" rel="noopener" class="footer__social-icon" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               </a>
               <a href="https://github.com" target="_blank" rel="noopener" class="footer__social-icon" aria-label="GitHub">
@@ -338,7 +392,13 @@ export function renderFooter() {
           </div>
         </div>
         <div class="footer__bottom">
-          <span class="footer__copyright">© 2025 Cybersecurity OWASP Consortium, MANIT Bhopal. All rights reserved.</span>
+          <span class="footer__copyright">&copy; ${new Date().getFullYear()} Cybersecurity OWASP Consortium, MANIT Bhopal. All rights reserved.</span>
+          <span class="footer__status">
+            <span class="footer__status-dot"></span>
+            ALL SYSTEMS OPERATIONAL
+          </span>
+          <span class="footer__clock" id="footer-clock"></span>
+          <a href="#" class="footer__top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">BACK TO TOP &uarr;</a>
         </div>
       </div>
     </footer>

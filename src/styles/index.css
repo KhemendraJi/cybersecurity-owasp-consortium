@@ -3,10 +3,10 @@
 @import './variables.css';
 @import './reset.css';
 @import './global.css';
-@import './preloader.css';
 @import './navbar.css';
 @import './socialbar.css';
 @import './hero.css';
+@import './hero-v2.css';
 @import './about.css';
 @import './events.css';
 @import './collaborations.css';
@@ -19,5 +19,6 @@
 @import './pages-new.css';
 @import './gallery.css';
 @import './interactions.css';
+@import './glass.css';
 @import './about-new.css';
 @import './responsive.css';

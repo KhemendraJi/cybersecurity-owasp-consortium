@@ -58,9 +58,7 @@
   bottom: 0;
   left: 50%;
   width: 2px;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--color-text) 0,
+  background: repeating-rgba(0,0,0,0) 0,
     var(--color-text) 4px,
     transparent 4px,
     transparent 12px
@@ -132,7 +130,7 @@
   height: 12px;
   background: var(--color-bg);
   border: 2px solid var(--color-text);
-  border-radius: 50%;
+  border-radius: 0;
   transform: translateY(-50%);
   z-index: 2;
   transition: background 0.3s ease;
@@ -168,7 +166,7 @@
   border: 1px solid var(--color-border);
   overflow: hidden;
   background: #000;
-  border-radius: 2px;
+  border-radius: 0;
   /* Width handling based on size */
 }
 

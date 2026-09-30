@@ -3,8 +3,6 @@ import './styles/index.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { initMatrixBackground } from './three/MatrixBackground.js';
-import { HeroScene } from './three/HeroScene.js';
 import { Router } from './router.js';
 import { renderHome } from './pages/Home.js';
 import { renderAboutPage } from './pages/AboutPage.js';
@@ -14,52 +12,15 @@ import { renderSponsorsPage } from './pages/SponsorsPage.js';
 import { renderTeamPage } from './pages/TeamPage.js';
 import { renderContactPage } from './pages/ContactPage.js';
 import { events } from './data/events.js';
+import { initGraphics } from './graphics.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // ── State ──
-let bgScene = null;
-let heroScene = null;
+let secureScene = null;
 let lenis = null;
 
-// ============================================================
-// PRELOADER
-// ============================================================
-function runPreloader() {
-  return new Promise(resolve => {
-    const preloader = document.getElementById('preloader');
-    const status = preloader.querySelector('.preloader__status');
-    const barFill = preloader.querySelector('.preloader__bar-fill');
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.to(preloader, {
-          opacity: 0,
-          duration: 0.6,
-          ease: 'power2.in',
-          onComplete: () => {
-            preloader.style.display = 'none';
-            preloader.classList.add('done');
-            resolve();
-          }
-        });
-      }
-    });
-
-    // Show status
-    tl.to(status, { opacity: 1, duration: 0.3 }, 0.5);
-
-    // Animate progress bar
-    tl.to(barFill, {
-      width: '100%',
-      duration: 1.5,
-      ease: 'power1.inOut'
-    }, 0.8);
-
-    // Hold before fading out
-    tl.to({}, { duration: 0.5 });
-  });
-}
 
 // ============================================================
 // SMOOTH SCROLLING (LENIS)
@@ -76,7 +37,6 @@ function initLenis() {
 
   lenis.on('scroll', (e) => {
     ScrollTrigger.update();
-    if (bgScene) bgScene.updateScroll(e.animatedScroll);
   });
 
   function raf(time) {
@@ -143,41 +103,79 @@ function initNavbar() {
 }
 
 // ============================================================
-// HERO ANIMATIONS (ENTRANCE & TERMINAL)
+// HERO V2 ANIMATIONS
 // ============================================================
-function initHeroAnimations() {
-  const tl = gsap.timeline({ delay: 0.2 });
-
-  // 1. Grid & Haze fade in
-  tl.fromTo('.tech-grid-bg', { opacity: 0 }, { opacity: 1, duration: 1.5, ease: 'power2.inOut' }, 0);
-  
-  // 2. 3D canvas scale up (instead of container, to avoid scroll conflict)
-  tl.fromTo('.hero__3d-container canvas', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.5, ease: 'power3.out' }, 0.5);
-
-  // 3. Left content text stagger
-  tl.fromTo('.hero__identity, .hero__heading span, .hero__desc, .hero__tagline, .hero__ctas',
-    { opacity: 0, x: -30 },
-    { opacity: 1, x: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' },
-    0.8
-  );
-
-  tl.fromTo('.hero__scroll', { opacity: 0 }, { opacity: 1, duration: 1 }, 1.5);
-
-  // Animate hero counter numbers
-  document.querySelectorAll('.hero__live-stat-num[data-count]').forEach(el => {
-    const target = parseInt(el.dataset.count);
-    let start = 0;
-    const duration = 1800;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(ease * target);
-      if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = target;
+function initHeroV2() {
+  // IST Clock
+  const clockEl = document.getElementById('hero-clock');
+  if (clockEl) {
+    const updateClock = () => {
+      const now = new Date();
+      const ist = new Intl.DateTimeFormat('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: false
+      }).format(now);
+      clockEl.textContent = ist + ' IST';
     };
-    setTimeout(() => requestAnimationFrame(step), 900);
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
+
+  // Hero entrance: staggered fade-up (opacity starts at 0 in CSS)
+  gsap.to('.hero-v2__tagrow', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.05 });
+  gsap.to('.hero-v2__title',  { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.18 });
+  gsap.to('.hero-v2__rule',   { opacity: 1,        duration: 0.5, ease: 'none',       delay: 0.28 });
+  gsap.to('.hero-v2__desc-row',{ opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.36 });
+  gsap.to('.hero-v2__stage',  { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.50 });
+  gsap.to('.hero-v2__stats',  { opacity: 1,        duration: 0.6, ease: 'power2.out', delay: 0.65 });
+
+  // Magnetic buttons
+  document.querySelectorAll('.magnetic-btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.28;
+      const dy = (e.clientY - cy) * 0.28;
+      gsap.to(btn, { x: dx, y: dy, duration: 0.3, ease: 'power2.out' });
+    });
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.5)' });
+    });
   });
+
+  // Count-up stats on scroll
+  const statNums = document.querySelectorAll('.hero-v2__stat-num[data-target]');
+  if (statNums.length) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          let current = 0;
+          const step = target / 40;
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = Math.floor(current);
+            if (current >= target) clearInterval(timer);
+          }, 30);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    statNums.forEach(el => observer.observe(el));
+  }
+
+  // Marquee speed reacts to scroll
+  const marqueeTrack = document.getElementById('marquee-track');
+  if (marqueeTrack && window.lenis) {
+    window.lenis.on('scroll', (e) => {
+      const speed = 22 - Math.abs(e.velocity) * 2;
+      const clamped = Math.max(6, Math.min(30, speed));
+      marqueeTrack.style.animationDuration = clamped + 's';
+    });
+  }
 }
 
 // ============================================================
@@ -293,7 +291,7 @@ function initEventModal() {
 
     content.innerHTML = `
       <button class="event-modal__close" aria-label="Close">✕</button>
-      <img class="event-modal__image" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" alt="${event.title}" />
+      <img class="event-modal__image" src="${event.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80'}" alt="${event.title}" />
       <div class="event-modal__body">
         <span class="event-modal__tag">${event.category}</span>
         <h2 class="event-modal__title">${event.title}</h2>
@@ -305,7 +303,7 @@ function initEventModal() {
         <div class="event-modal__divider"></div>
         <h3 class="event-modal__desc-title">About the Event</h3>
         <p class="event-modal__desc">${event.fullDescription || event.description}</p>
-        ${event.speakers ? `
+        ${event.speakers && event.speakers.length > 0 ? `
           <h3 class="event-modal__desc-title">Speakers</h3>
           <p class="event-modal__desc">${event.speakers.join(', ')}</p>
         ` : ''}
@@ -458,44 +456,41 @@ function renderPage(routeName) {
   const renderFn = pages[routeName] || pages.home;
   container.innerHTML = renderFn();
 
-  // Initialize HeroScene if not present
   if (routeName === 'home') {
-    const heroContainer = document.querySelector('.hero__3d-container');
-    if (heroContainer) {
-      if (!heroScene) {
-        heroScene = new HeroScene(heroContainer);
-      } else {
-        heroContainer.appendChild(heroScene.renderer.domElement);
-        heroScene.container = heroContainer;
-        heroScene.setVisibility(true);
-      }
-      // Trigger animations for the new DOM elements
+    if (window.__preloaderDone) {
       requestAnimationFrame(() => {
-        initHeroAnimations();
+        initHeroV2();
       });
+    }
+  } else {
+    if (!window.__appReady) {
+      window.__appReady = true;
+      window.dispatchEvent(new Event('app:ready'));
     }
   }
 
-  // Toggle hero scene visibility
-  if (heroScene) {
-    heroScene.setVisibility(routeName === 'home');
+  // Re-initialize scroll animations after content change (only if preloader done)
+  if (window.__preloaderDone) {
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      initScrollAnimations();
+    });
   }
-
-  // Re-initialize scroll animations after content change
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-    initScrollAnimations();
-  });
 }
 
 // ============================================================
 // INIT
 // ============================================================
 async function init() {
-  // Run preloader
-  await runPreloader();
+  // Initialize router (renders initial page, dispatches app:ready)
+  const router = new Router(renderPage);
+  router.init();
 
-  // Initialize systems
+  if (!window.__preloaderDone) {
+    await new Promise(r => addEventListener('preloader:done', r, { once: true }));
+  }
+
+  // Initialize systems after preloader
   initLenis();
   initBackground();
   initNavbar();
@@ -503,14 +498,106 @@ async function init() {
   initEventsFilter();
   initGalleryFilter();
 
-  // Initialize router (renders initial page)
-  const router = new Router(renderPage);
-  router.init();
+  // Initialize Team interactions
+  document.addEventListener('mouseover', (e) => {
+    const card = e.target.closest('.team-member-card');
+    const hud = document.getElementById('team-stats-hud');
+    if (card && hud) {
+      document.getElementById('hud-name').innerText = card.dataset.memberName;
+      document.getElementById('hud-role').innerText = card.dataset.memberRole;
+      document.getElementById('hud-level').innerText = card.dataset.memberLevel;
+      document.getElementById('hud-nodes').innerText = card.dataset.memberNodes;
+      hud.classList.add('visible');
+    }
+  });
+  document.addEventListener('mouseout', (e) => {
+    const card = e.target.closest('.team-member-card');
+    const hud = document.getElementById('team-stats-hud');
+    if (card && hud) {
+      hud.classList.remove('visible');
+    }
+  });
+
+  // Hacking decrypt on Event click
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-event-id]');
+    if (!btn) return;
+    const title = document.querySelector('.event-modal__title');
+    if (title) {
+      const original = title.innerText;
+      const chars = '!<>-_\\\\/[]{}—=+*^?#_0123456789X@$';
+      let frame = 0;
+      const totalFrames = 20;
+      const update = () => {
+        let result = '';
+        for (let i = 0; i < original.length; i++) {
+          if (frame > (totalFrames * (i / original.length))) {
+            result += original[i];
+          } else {
+            result += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+        title.innerText = result;
+        if (frame < totalFrames) {
+          frame++;
+          setTimeout(() => requestAnimationFrame(update), 30);
+        } else {
+          title.innerText = original;
+        }
+      };
+      update();
+    }
+  });
+
+  // Gallery cylinder rotation
+  if (window.lenis) {
+    window.lenis.on('scroll', (e) => {
+      const cylinder = document.getElementById('gallery-cylinder');
+      if (cylinder) {
+        const angle = (e.animatedScroll / 2000) * 360;
+        cylinder.style.transform = `rotateY(${angle}deg)`;
+      }
+    });
+  }
 
   // Initial scroll animation setup
   requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
     initScrollAnimations();
+    const currentHash = window.location.hash || '#/';
+    if (currentHash === '#/') {
+      initHeroV2();
+    }
   });
+
+  // Footer clock
+  const updateFooterClock = () => {
+    const el = document.getElementById('footer-clock');
+    if (!el) return;
+    const now = new Date();
+    const ist = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false
+    }).format(now);
+    el.textContent = ist + ' IST';
+  };
+  setInterval(updateFooterClock, 1000);
+  updateFooterClock();
+
+  // Glass specular highlight on mouse move
+  document.addEventListener('mousemove', (e) => {
+    document.querySelectorAll('.glass-specular').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty('--mouse-x', x + '%');
+      el.style.setProperty('--mouse-y', y + '%');
+    });
+  });
+
+  // Initialize new 3D graphics & cursor
+  initGraphics();
 }
 
 // Start

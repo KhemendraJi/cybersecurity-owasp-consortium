@@ -55,7 +55,7 @@
   text-transform: uppercase;
   padding: 0.4rem 1rem;
   border: 1px solid var(--color-border);
-  border-radius: 2px;
+  border-radius: 0;
   color: var(--color-text-dim);
   background: transparent;
   cursor: pointer;
@@ -80,7 +80,7 @@
 .challenge-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   padding: var(--space-md);
   transition: all var(--duration-normal) var(--ease-out);
   position: relative;
@@ -111,23 +111,23 @@
   font-size: 10px;
   letter-spacing: 0.05em;
   padding: 0.2rem 0.5rem;
-  border-radius: 2px;
+  border-radius: 0;
   border: 1px solid;
 }
 
 .challenge-card__difficulty--easy {
   color: var(--color-green);
-  border-color: rgba(0, 245, 160, 0.3);
+  border-color: rgba(255,255,255,0.3);
 }
 
 .challenge-card__difficulty--medium {
-  color: #ffd700;
-  border-color: rgba(255, 215, 0, 0.3);
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.3);
 }
 
 .challenge-card__difficulty--hard {
-  color: #ff6b6b;
-  border-color: rgba(255, 107, 107, 0.3);
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.3);
 }
 
 .challenge-card__title {
@@ -207,9 +207,9 @@
   color: var(--color-text-primary);
 }
 
-.leaderboard-rank--gold { color: #ffd700; }
+.leaderboard-rank--gold { color: #ffffff; }
 .leaderboard-rank--silver { color: #c0c0c0; }
-.leaderboard-rank--bronze { color: #cd7f32; }
+.leaderboard-rank--bronze { color: #ffffff; }
 
 .leaderboard-score {
   font-family: var(--font-mono);
@@ -231,7 +231,7 @@
 .past-ctf-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   padding: var(--space-lg);
   text-align: center;
   transition: all var(--duration-normal) var(--ease-out);

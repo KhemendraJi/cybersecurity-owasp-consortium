@@ -78,7 +78,7 @@ export const events = [
     fullDescription: 'A hands-on workshop focused on ethical hacking, networking, and cybersecurity fundamentals, designed to provide participants with practical exposure to modern security concepts.',
     speakers: [],
     venue: 'Main Lab Hall',
-    featured: true,
+    featured: false,
     registrationLink: '#'
   },
   {

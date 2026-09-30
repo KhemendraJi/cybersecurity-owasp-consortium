@@ -34,26 +34,7 @@ export const coreTeam = [
 ];
 
 export const members = [
-  { name: 'Saurav Sahu', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Sharsti Garg', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Shubham Atram', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Aditi Khatri', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Amit Baghel', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Arjit Yadav', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Chirag Gurjar', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Dev Sharma', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Harsh Rathore', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Himanshi Dangi', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Kanishk Tiwari', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Manya Mehta', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Prarthana Sharma', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Serine Ros Anto', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Shlok Gupta', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Sumit Maurya', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Viha Sooden', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Nitin Kumar', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Yashika Gupta', role: 'Upcoming Lead', linkedin: null, image: null },
-  { name: 'Khemendra Singh Jatav', role: 'Upcoming Lead', linkedin: null, image: null },
+  // Placeholder members hidden until real data is available
 ];
 
 // Generate placeholder avatar for members without images

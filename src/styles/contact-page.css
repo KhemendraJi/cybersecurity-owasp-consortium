@@ -25,9 +25,9 @@
 
 /* ── Terminal Form ── */
 .contact-form {
-  background: rgba(5, 6, 6, 0.9);
+  background: rgba(0,0,0,0.9);
   border: 1px solid var(--color-border);
-  border-top: 3px solid #ff5f56;
+  border-top: 3px solid rgba(255,255,255,0.15);
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -38,7 +38,7 @@
   display: block;
   font-family: var(--font-mono);
   font-size: 8px;
-  color: #27c93f;
+  color: #ffffff;
   padding: 0.5rem;
   border-bottom: 1px solid var(--color-border);
   letter-spacing: 0.2em;
@@ -56,12 +56,12 @@
 .contact-form__dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 0;
 }
 
-.contact-form__dot--red { background: #ff5f56; }
-.contact-form__dot--yellow { background: #ffbd2e; }
-.contact-form__dot--green { background: #27c93f; }
+.contact-form__dot--red { background: rgba(255,255,255,0.15); }
+.contact-form__dot--yellow { background: rgba(255,255,255,0.15); }
+.contact-form__dot--green { background: #ffffff; }
 
 .contact-form__title {
   font-family: var(--font-mono);
@@ -160,12 +160,12 @@
 .contact-sys-block__dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--color-text-dim);
 }
 
 .contact-sys-block__dot--ping {
-  background: #27c93f;
+  background: #ffffff;
   animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
@@ -226,7 +226,7 @@
 .contact-info__social-link:hover {
   border-color: var(--color-blue);
   color: var(--color-blue);
-  background: rgba(0,180,216,0.1);
+  background: rgba(255,255,255,0.1);
 }
 
 .contact-info__social-link svg {
@@ -237,7 +237,7 @@
 /* ── Map ── */
 .contact-map {
   margin-top: var(--space-2xl);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   overflow: hidden;
   border: 1px solid var(--color-border);
   height: 300px;

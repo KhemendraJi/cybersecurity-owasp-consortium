@@ -1,5 +1,5 @@
-// ===== SPONSORS PAGE — Tier Cards Layout =====
 import { renderFooter } from './Home.js';
+import { OutlineWord, SectionOverline, BorderGrid } from '../components.js';
 
 const tiers = [
   {
@@ -41,31 +41,33 @@ export function renderSponsorsPage() {
       <div class="container">
 
         <!-- HERO -->
-        <div class="sponsors-hero reveal-up">
-          <span class="section-overline">NETWORK PARTNERS</span>
-          <h1 class="sponsors-hero__heading">OUR <span>SPONSORS</span></h1>
-          <p class="sponsors-hero__desc">
+        <div class="sponsors-hero reveal-up" style="border-bottom:1px solid var(--color-border); padding-bottom:4rem; margin-bottom:4rem;">
+          ${SectionOverline('01', 'NETWORK PARTNERS', 'reveal-up')}
+          <h1 class="sponsors-hero__heading" style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); line-height: 0.9; margin-bottom: 2rem; text-transform: uppercase;">
+            OUR ${OutlineWord('SPONSORS')}
+          </h1>
+          <p class="sponsors-hero__desc" style="max-width:600px; color:var(--color-text-secondary);">
             We thank our partners and sponsors for supporting the cybersecurity community at MANIT Bhopal. Their backing makes every event, workshop, and competition possible.
           </p>
         </div>
 
         <!-- TIER SECTIONS -->
         ${tiers.map(tier => `
-          <div class="sponsors-tier-section reveal-up">
-            <div class="sponsors-tier-section__header">
-              <div class="sponsors-tier-section__rank">${tier.rank}</div>
+          <div class="sponsors-tier-section reveal-up" style="margin-bottom:6rem;">
+            <div class="sponsors-tier-section__header" style="display:flex; align-items:flex-end; gap:2rem; border-bottom:1px solid var(--color-border); padding-bottom:1rem; margin-bottom:2rem;">
+              <div class="sponsors-tier-section__rank" style="font-family:var(--font-mono); font-size:3rem; color:var(--color-text-dim); line-height:1;">${tier.rank}</div>
               <div class="sponsors-tier-section__meta">
-                <h2 class="sponsors-tier-section__label">TIER ${tier.rank} — ${tier.label}</h2>
-                <div class="sponsors-tier-section__benefits">
-                  ${tier.benefits.map(b => `<span class="sponsors-tier-benefit">${b}</span>`).join('')}
+                <h2 class="sponsors-tier-section__label" style="font-family:var(--font-display); font-size:1.5rem; text-transform:uppercase;">— ${tier.label}</h2>
+                <div class="sponsors-tier-section__benefits" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.5rem;">
+                  ${tier.benefits.map(b => `<span>[ ${b} ]</span>`).join('')}
                 </div>
               </div>
             </div>
-            <div class="sponsors-logos-grid">
+            <div class="sponsors-logos-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;">
               ${tier.partners.map(p => `
-                <div class="sponsors-logo-card border-draw">
-                  <img src="${p.logo}" alt="${p.name}" class="sponsors-logo-card__img depth-layer-2" />
-                  <span class="sponsors-logo-card__name depth-layer-1">${p.name}</span>
+                <div class="sponsors-logo-card border-draw" style="padding:2rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; border:1px solid var(--color-border); background:rgba(255,255,255,0.02);">
+                  <img src="${p.logo}" alt="${p.name}" class="sponsors-logo-card__img" style="filter:grayscale(1) brightness(2.5); transition:filter 0.3s; width:80px; height:80px; object-fit:contain; opacity:0.85;" onmouseover="this.style.filter='grayscale(0) brightness(1)';this.style.opacity='1'" onmouseout="this.style.filter='grayscale(1) brightness(2.5)';this.style.opacity='0.85'" />
+                  <span class="sponsors-logo-card__name" style="font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.05em;">${p.name}</span>
                 </div>
               `).join('')}
             </div>
@@ -73,31 +75,31 @@ export function renderSponsorsPage() {
         `).join('')}
 
         <!-- BECOME A SPONSOR -->
-        <div class="sponsors-cta-section reveal-up">
-          <div class="sponsors-cta-section__header">
-            <span class="section-overline">BECOME A SPONSOR</span>
-            <h2 class="sponsors-cta-section__heading">PARTNER WITH <span>US</span></h2>
-            <p class="sponsors-cta-section__desc">
+        <div class="sponsors-cta-section reveal-up" style="margin-top:8rem; border-top:1px solid var(--color-border); padding-top:4rem;">
+          <div class="sponsors-cta-section__header" style="margin-bottom:3rem;">
+            ${SectionOverline('02', 'BECOME A SPONSOR', 'reveal-up')}
+            <h2 class="sponsors-cta-section__heading" style="font-family:var(--font-display); font-size:3rem; text-transform:uppercase;">PARTNER WITH ${OutlineWord('US')}</h2>
+            <p class="sponsors-cta-section__desc" style="color:var(--color-text-secondary); max-width:600px;">
               Interested in supporting Cybersecurity OWASP Consortium events at MANIT Bhopal?<br/>Fill out the application — our team responds within 48 hours.
             </p>
           </div>
 
-          <div class="sponsors-form-grid">
-            <div class="cf-group">
-              <label class="cf-label">COMPANY NAME</label>
-              <input type="text" class="cf-input" placeholder="Acme Corp" id="sp-company" />
+          <div class="sponsors-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">COMPANY NAME</label>
+              <input type="text" class="cf-input" placeholder="Acme Corp" id="sp-company" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
             </div>
-            <div class="cf-group">
-              <label class="cf-label">CONTACT EMAIL</label>
-              <input type="email" class="cf-input" placeholder="contact@company.com" id="sp-email" />
+            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">CONTACT EMAIL</label>
+              <input type="email" class="cf-input" placeholder="contact@company.com" id="sp-email" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
             </div>
-            <div class="cf-group">
-              <label class="cf-label">CONTACT PERSON</label>
-              <input type="text" class="cf-input" placeholder="Jane Smith" id="sp-contact" />
+            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">CONTACT PERSON</label>
+              <input type="text" class="cf-input" placeholder="Jane Smith" id="sp-contact" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;" />
             </div>
-            <div class="cf-group">
-              <label class="cf-label">TIER INTEREST</label>
-              <select class="cf-input cf-select" id="sp-tier">
+            <div class="cf-group" style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">TIER INTEREST</label>
+              <select class="cf-input cf-select" id="sp-tier" style="background:var(--color-black); border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0;">
                 <option value="">— Select a tier —</option>
                 <option value="platinum">Tier 01 // Platinum</option>
                 <option value="gold">Tier 02 // Gold</option>
@@ -105,15 +107,15 @@ export function renderSponsorsPage() {
                 <option value="custom">Custom Package</option>
               </select>
             </div>
-            <div class="cf-group cf-group--full">
-              <label class="cf-label">MESSAGE</label>
-              <textarea class="cf-input cf-textarea" placeholder="Tell us about your company and what kind of collaboration you're looking for..." id="sp-message"></textarea>
+            <div class="cf-group cf-group--full" style="grid-column: 1 / -1; display:flex; flex-direction:column; gap:0.5rem;">
+              <label class="cf-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">MESSAGE</label>
+              <textarea class="cf-input cf-textarea" placeholder="Tell us about your company and what kind of collaboration you're looking for..." id="sp-message" style="background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0; min-height:150px;"></textarea>
             </div>
-            <div class="cf-submit cf-group--full">
-              <button class="btn btn--primary" type="button" id="sp-submit">
-                Submit Application <span class="btn-arrow">→</span>
+            <div class="cf-submit cf-group--full" style="grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center;">
+              <button class="btn btn--outline" type="button" id="sp-submit">
+                SUBMIT APPLICATION →
               </button>
-              <span class="cf-note">Response within 48 hours</span>
+              <span class="cf-note" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">Response within 48 hours</span>
             </div>
           </div>
         </div>
