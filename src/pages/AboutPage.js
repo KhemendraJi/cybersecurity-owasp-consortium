@@ -1,5 +1,6 @@
 // ===== ABOUT PAGE — Open Breathable Layout =====
 import { renderFooter } from './Home.js';
+import { OutlineWord, ReticleFrame, StatsTable, BorderGrid, SectionOverline } from '../components.js';
 
 export function renderAboutPage() {
   const whatWeDo = [
@@ -41,59 +42,45 @@ export function renderAboutPage() {
         <!-- HERO -->
         <div class="about-page__hero">
           <div class="about-page__hero-left reveal-left">
-            <span class="section-overline">ABOUT US</span>
-            <h1 class="about-page__hero-heading">SECURING<br/>TOMORROW<br/><span>TOGETHER.</span></h1>
+            ${SectionOverline('01', 'ABOUT US', 'reveal-up')}
+            <h1 class="about-page__hero-heading" style="font-family: var(--font-display); font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; margin-bottom: 2rem; text-transform: uppercase;">
+              SECURING<br/>
+              TOMORROW<br/>
+              ${OutlineWord('TOGETHER.')}
+            </h1>
             <p class="about-page__main-desc reveal-up">
               Cybersecurity OWASP Consortium, MANIT Bhopal is a student-driven community dedicated to promoting cybersecurity awareness, learning and innovation.
             </p>
-            <div class="about-page__hero-ctas">
-              <a href="#/team" class="btn btn--primary">Meet the Team <span class="btn-arrow">→</span></a>
-              <a href="#/contact" class="btn">Get In Touch <span class="btn-arrow">→</span></a>
+            <div class="about-page__hero-ctas" style="display:flex; gap:1rem; margin-top:2rem;">
+              <a href="#/team" class="btn btn--solid">MEET THE TEAM →</a>
+              <a href="#/contact" class="btn btn--outline">GET IN TOUCH</a>
             </div>
           </div>
-          <div class="about-page__hero-right reveal-right">
+          <div class="about-page__hero-right reveal-right" style="display:flex; justify-content:center; align-items:center;">
             <div class="about-page__image-wrap float-element">
-              <img
-                class="about-page__image"
-                src="https://images.unsplash.com/photo-1562774053-701939374585?w=1200&q=80"
-                alt="MANIT Bhopal"
-                loading="lazy"
-              />
-              <span class="about-page__image-label">SYS // MANIT.AC.IN — BHOPAL, MP</span>
-              <div class="about-page__image-reticle about-page__image-reticle--tl"></div>
-              <div class="about-page__image-reticle about-page__image-reticle--tr"></div>
-              <div class="about-page__image-reticle about-page__image-reticle--bl"></div>
-              <div class="about-page__image-reticle about-page__image-reticle--br"></div>
+              ${ReticleFrame(`
+                <img
+                  class="about-page__image"
+                  src="https://images.unsplash.com/photo-1562774053-701939374585?w=1200&q=80"
+                  alt="MANIT Bhopal"
+                  loading="lazy"
+                  style="width:100%; aspect-ratio:4/5; object-fit:cover; filter: grayscale(1) brightness(0.7);"
+                />
+              `)}
+              <span class="about-page__image-label" style="display:block; margin-top:1rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">SYS // MANIT.AC.IN — BHOPAL, MP</span>
             </div>
           </div>
         </div>
 
         <!-- STATS STRIP -->
-        <div class="about-stats-strip reveal-up">
-          <div class="about-stats-strip__item">
-            <span class="about-stats-strip__num">200+</span>
-            <span class="about-stats-strip__label">Active Members</span>
-          </div>
-          <div class="about-stats-strip__sep"></div>
-          <div class="about-stats-strip__item">
-            <span class="about-stats-strip__num">15+</span>
-            <span class="about-stats-strip__label">Events Hosted</span>
-          </div>
-          <div class="about-stats-strip__sep"></div>
-          <div class="about-stats-strip__item">
-            <span class="about-stats-strip__num">5+</span>
-            <span class="about-stats-strip__label">CTF Competitions</span>
-          </div>
-          <div class="about-stats-strip__sep"></div>
-          <div class="about-stats-strip__item">
-            <span class="about-stats-strip__num">3+</span>
-            <span class="about-stats-strip__label">Open-Source Projects</span>
-          </div>
-          <div class="about-stats-strip__sep"></div>
-          <div class="about-stats-strip__item">
-            <span class="about-stats-strip__num">5+</span>
-            <span class="about-stats-strip__label">Years of Impact</span>
-          </div>
+        <div class="about-stats-strip reveal-up" style="margin: 4rem 0;">
+          ${StatsTable([
+            { value: '200+', label: 'Active Members' },
+            { value: '15+', label: 'Events Hosted' },
+            { value: '5+', label: 'CTF Competitions' },
+            { value: '3+', label: 'Open-Source Projects' },
+            { value: '5+', label: 'Years of Impact' }
+          ])}
         </div>
 
         <!-- VISION / MISSION -->
@@ -116,21 +103,19 @@ export function renderAboutPage() {
         </div>
 
         <!-- WHAT WE DO -->
-        <div class="about-whatwedo-section">
-          <div class="about-whatwedo-header reveal-up">
-            <span class="section-overline">PROGRAMS</span>
-            <h2 class="section-title">WHAT WE <span>DO</span></h2>
+        <div class="about-whatwedo-section" style="margin-top: 6rem;">
+          <div class="about-whatwedo-header reveal-up" style="margin-bottom: 2rem;">
+            ${SectionOverline('02', 'PROGRAMS', 'reveal-up')}
+            <h2 class="section-title">WHAT WE ${OutlineWord('DO')}</h2>
           </div>
-          <div class="about-whatwedo-stagger">
-            ${whatWeDo.map((item, i) => `
-              <div class="about-do-stagger-card border-draw reveal-up" style="--delay:${i * 0.1}s; margin-top: ${i % 2 === 1 ? '4rem' : '0'};">
-                <div class="about-do-stagger-card__num">0${i + 1}</div>
-                <div class="about-do-stagger-card__icon">${item.icon}</div>
-                <h3 class="about-do-stagger-card__title">${item.title}</h3>
-                <p class="about-do-stagger-card__desc">${item.desc}</p>
-              </div>
-            `).join('')}
-          </div>
+          ${BorderGrid(whatWeDo.map((item, i) => ({
+            html: `
+              <div class="about-do-stagger-card__num" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); margin-bottom:1rem;">0${i + 1}</div>
+              <div class="about-do-stagger-card__icon" style="margin-bottom:1rem; color:var(--color-white);">${item.icon}</div>
+              <h3 class="about-do-stagger-card__title" style="font-family:var(--font-display); font-size:1.5rem; text-transform:uppercase; margin-bottom:0.5rem;">${item.title}</h3>
+              <p class="about-do-stagger-card__desc" style="color:var(--color-text-secondary); font-size:0.9rem;">${item.desc}</p>
+            `
+          })))}
         </div>
 
         <!-- TIMELINE -->

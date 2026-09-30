@@ -1,91 +1,113 @@
-/* ===== OWASP CONSORTIUM — DESIGN TOKENS (B/W OS THEME) ===== */
+/* ===== OWASP CONSORTIUM — DESIGN TOKENS (EDITORIAL BRUTALIST) ===== */
 
 :root {
-  /* Colors - Monochrome Base */
-  --color-black: #050606;
-  --color-black-light: #121314;
-  --color-white: #ffffff;
-  --color-white-dim: rgba(255, 255, 255, 0.7);
-  --color-white-dimmer: rgba(255, 255, 255, 0.4);
+  /* ── Core Colors — Pure Black & White ── */
+  --color-black:       #000000;
+  --color-black-soft:  #050505;
+  --color-black-card:  #000000;
+  --color-white:       #ffffff;
+  --color-white-90:    rgba(255, 255, 255, 0.90);
+  --color-white-60:    rgba(255, 255, 255, 0.60);
+  --color-white-35:    rgba(255, 255, 255, 0.35);
+  --color-white-15:    rgba(255, 255, 255, 0.15);
+  --color-white-10:    rgba(255, 255, 255, 0.10);
+  --color-white-08:    rgba(255, 255, 255, 0.08);
+  --color-white-04:    rgba(255, 255, 255, 0.04);
 
-  /* Accent - Blue only on hover/active */
-  --color-blue: #00b4d8;
-  --color-blue-glow: rgba(0, 180, 216, 0.4);
+  /* ── Accent — Pure White ONLY ── */
+  --color-accent:      #ffffff;
+  --color-accent-dim:  rgba(255, 255, 255, 0.6);
+  --color-accent-glow: rgba(255, 255, 255, 0.15);
 
-  /* Semantic */
-  --color-bg: var(--color-black);
-  --color-surface: var(--color-black-light);
-  --color-text-primary: var(--color-white);
-  --color-text-secondary: var(--color-white-dim);
-  --color-text-dim: var(--color-white-dimmer);
+  /* Deprecated aliases - keeping them pointing to white to not break compilation during transition */
+  --color-blue:        #ffffff;
+  --color-blue-glow:   rgba(255, 255, 255, 0.15);
 
-  /* OS UI borders */
-  --color-border: rgba(255, 255, 255, 0.15);
-  --color-border-hover: var(--color-blue);
+  /* ── Status Colors (White only) ── */
+  --color-green:  #ffffff;
+  --color-red:    #ffffff;
+  --color-yellow: #ffffff;
+  --color-charcoal: #111111;
 
-  /* Typography */
+  /* ── Semantic Tokens ── */
+  --color-bg:             var(--color-black-soft);
+  --color-surface:        var(--color-black-card);
+  --color-text-primary:   #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.60);
+  --color-text-dim:       rgba(255, 255, 255, 0.35);
+
+  /* ── Borders ── */
+  --color-border:        rgba(255, 255, 255, 0.10);
+  --color-border-mid:    rgba(255, 255, 255, 0.18);
+  --color-border-bright: rgba(255, 255, 255, 0.35);
+  --color-border-hover:  #ffffff;
+
+  /* ── Typography ── */
   --font-display: 'Outfit', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
 
-  --fs-hero: clamp(3.5rem, 8vw, 7rem);
-  --fs-h1: clamp(2.5rem, 5vw, 4rem);
-  --fs-h2: clamp(1.8rem, 3.5vw, 2.8rem);
-  --fs-h3: clamp(1.2rem, 2vw, 1.6rem);
-  --fs-body: clamp(0.9rem, 1.2vw, 1.05rem);
-  --fs-small: clamp(0.75rem, 1vw, 0.85rem);
-  --fs-micro: clamp(0.65rem, 0.8vw, 0.75rem);
+  /* Font Sizes */
+  --fs-display: clamp(5rem, 12vw, 11rem);
+  --fs-hero:    clamp(3.5rem,  8vw,  7rem);
+  --fs-h1:      clamp(2rem,  4.5vw,  3.6rem);
+  --fs-h2:      clamp(1.6rem,  3.5vw, 2.6rem);
+  --fs-h3:      clamp(1.1rem,  2vw,  1.5rem);
+  --fs-body:    clamp(0.9rem, 1.1vw, 1rem);
+  --fs-small:   clamp(0.72rem, 1vw,  0.84rem);
+  --fs-micro:   clamp(0.62rem, 0.8vw, 0.72rem);
 
-  --lh-tight: 1.1;
-  --lh-heading: 1.2;
-  --lh-body: 1.65;
+  /* Line Heights */
+  --lh-tight:   0.88;
+  --lh-heading: 1.1;
+  --lh-body:    1.65;
 
   /* Font Weights */
-  --fw-light: 300;
-  --fw-regular: 400;
-  --fw-medium: 500;
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
   --fw-semibold: 600;
-  --fw-bold: 700;
-  --fw-black: 900;
+  --fw-bold:     700;
+  --fw-black:    900;
 
   /* ── Spacing ── */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2.5rem;
-  --space-xl: 4rem;
-  --space-2xl: 6rem;
-  --space-3xl: 10rem;
-  --space-section: clamp(5rem, 10vh, 8rem);
+  --space-xs:      0.5rem;
+  --space-sm:      1rem;
+  --space-md:      1.5rem;
+  --space-lg:      2.5rem;
+  --space-xl:      4rem;
+  --space-2xl:     6rem;
+  --space-3xl:     9rem;
+  --space-section: clamp(56px, 7vw, 110px);
 
   /* ── Layout ── */
-  --container-max: 1200px;
-  --container-narrow: 900px;
-  --container-wide: 1400px;
-  --container-pad: clamp(1.25rem, 4vw, 3rem);
+  --container-max:    min(1400px, 92vw);
+  --container-narrow: 880px;
+  --container-wide:   min(1400px, 92vw);
+  --container-pad:    clamp(1.25rem, 4vw, 3rem);
 
-  /* ── Radius ── */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 20px;
+  /* ── Radius — Sharp/zero for editorial brutalism ── */
+  --radius-sm:  0px;
+  --radius-md:  0px;
+  --radius-lg:  0px;
+  --radius-xl:  0px;
 
   /* ── Transitions ── */
-  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --duration-fast: 200ms;
-  --duration-normal: 350ms;
-  --duration-slow: 600ms;
+  --duration-fast:   180ms;
+  --duration-normal: 320ms;
+  --duration-slow:   550ms;
 
   /* ── Z-Index ── */
-  --z-canvas: -1;
-  --z-grain: 0;
-  --z-content: 1;
-  --z-social: 50;
-  --z-navbar: 100;
+  --z-canvas:    -1;
+  --z-bg:         0;
+  --z-content:    1;
+  --z-social:    50;
+  --z-navbar:   100;
   --z-mobile-nav: 150;
-  --z-modal: 200;
-  --z-cursor: 300;
+  --z-modal:    200;
+  --z-cursor:   300;
   --z-preloader: 1000;
 }

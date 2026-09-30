@@ -13,10 +13,8 @@
   background: var(--color-surface);
   border: 2px solid rgba(255, 255, 255, 0.6);
   border-right: none;
-  border-radius: 20px 0 0 20px;
+  border-radius: 0;
   padding: 0.5rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   transition: opacity var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
 }
 
@@ -36,7 +34,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 0;
   color: var(--color-text-dim);
   transition: all var(--duration-fast) var(--ease-out);
   position: relative;
