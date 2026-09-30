@@ -9,8 +9,9 @@ export function renderContactPage() {
         <!-- PAGE HERO -->
         <div class="contact-hero reveal-up" style="margin-bottom:4rem;">
           ${SectionOverline('01', 'CONTACT', 'reveal-up')}
-          <h1 class="contact-hero__heading" style="font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); line-height: 0.9; margin-bottom: 2rem; text-transform: uppercase;">
-            LET'S ${OutlineWord('CONNECT.')}
+          <h1 class="hero-v2__title" style="margin-bottom: 2rem;">
+            <span class="hero-v2__line1 scramble-text">LET'S</span>
+            <span class="hero-v2__line2 outline-word">CONNECT.</span>
           </h1>
           <p class="contact-hero__desc" style="max-width:600px; color:var(--color-text-secondary);">Have a question, collaboration idea, or want to conduct a workshop? We're all ears.</p>
         </div>
@@ -107,7 +108,8 @@ export function renderContactPage() {
                   <button class="topic-chip" style="background:transparent; border:1px solid var(--color-border); color:var(--color-text-dim); padding:0.25rem 0.75rem; font-family:var(--font-mono); font-size:0.7rem; cursor:pointer; transition:all 0.2s;" onclick="document.getElementById('contact-subject').value='Join us';">Join us</button>
                 </div>
 
-                <div class="cf-row" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+                <form id="contact-form" style="display:block;">
+                  <div class="cf-row" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
                   <div class="cf-group" style="position:relative;">
                     <input type="text" class="cf-input" id="contact-name" placeholder=" " required style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;" />
                     <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">YOUR NAME</label>
@@ -140,17 +142,12 @@ export function renderContactPage() {
                 </style>
 
                 <div class="cf-submit" style="display:flex; justify-content:space-between; align-items:center;">
-                  <button class="btn btn--outline" type="button" id="contact-submit" onclick="
-                    const btn = this;
-                    const container = document.getElementById('contact-form-container');
-                    const original = container.innerHTML;
-                    container.innerHTML = '<div style=\\'font-family:var(--font-mono); color:var(--color-text-dim); font-size:0.8rem; line-height:1.6;\\'><div>> init handshake...</div><div>> encrypting payload [256-bit AES]...</div><div>> establishing secure tunnel...</div><div>> dispatching data stream...</div><div style=\\'color:var(--color-white); margin-top:1rem;\\'>[SUCCESS] Transmission complete. Sequence terminated.</div></div>';
-                    setTimeout(() => container.innerHTML = original, 4000);
-                  ">
+                  <button class="btn btn--outline" type="submit" id="contact-submit">
                     SEND MESSAGE →
                   </button>
                   <span class="cf-note" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim);">Encrypted & secure</span>
                 </div>
+                </form>
               </div>
             </div>
           </div>

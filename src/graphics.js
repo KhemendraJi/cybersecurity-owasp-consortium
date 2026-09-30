@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 export function initGraphics() {
   // Custom Cursor
   const cursor = document.getElementById('custom-cursor');
@@ -25,7 +27,7 @@ export function initGraphics() {
 
   // 3D Scene (Unique Cyber-Core Design)
   const container = document.getElementById('webgl-container');
-  if (container && window.THREE) {
+  if (container) {
     container.innerHTML = '';
     
     const scene = new THREE.Scene();
@@ -42,53 +44,34 @@ export function initGraphics() {
     const group = new THREE.Group();
     scene.add(group);
 
-    // Core Icosahedron
-    const coreGeo = new THREE.IcosahedronGeometry(2, 1);
-    const coreMat = new THREE.MeshBasicMaterial({ color: 0x00ffcc, wireframe: true, transparent: true, opacity: 0.15 });
-    const core = new THREE.Mesh(coreGeo, coreMat);
-    group.add(core);
-
-    // Inner Shell
-    const shellGeo = new THREE.IcosahedronGeometry(2.8, 2);
-    const shellMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.08 });
-    const shellEdges = new THREE.EdgesGeometry(shellGeo);
-    const shell = new THREE.LineSegments(shellEdges, shellMat);
-    group.add(shell);
-
-    // Data Rings
-    const ringGroup = new THREE.Group();
-    group.add(ringGroup);
-
-    const createRing = (radius, tube, color, opacity, rotationSpeed) => {
-      const geo = new THREE.TorusGeometry(radius, tube, 16, 100);
-      const mat = new THREE.PointsMaterial({ color: color, size: 0.05, transparent: true, opacity: opacity });
-      const points = new THREE.Points(geo, mat);
-      points.userData = { rotationSpeed };
-      ringGroup.add(points);
-      return points;
-    };
-
-    createRing(4.5, 0.2, 0x00ffcc, 0.4, { x: 0.002, y: 0.005, z: 0.001 });
-    createRing(5.5, 0.1, 0xffffff, 0.2, { x: -0.001, y: -0.003, z: 0.002 });
-    createRing(6.5, 0.05, 0x00ffff, 0.15, { x: 0.003, y: 0.001, z: -0.002 });
-
-    // Floating Particles
-    const particlesGeo = new THREE.BufferGeometry();
-    const particleCount = 1500;
-    const posArray = new Float32Array(particleCount * 3);
-    for(let i = 0; i < particleCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 30;
+    // Network Nodes
+    const particleCount = 250;
+    const positions = new Float32Array(particleCount * 3);
+    const velocities = [];
+    for(let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 25;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 25;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 25;
+      velocities.push({
+        x: (Math.random() - 0.5) * 0.02,
+        y: (Math.random() - 0.5) * 0.02,
+        z: (Math.random() - 0.5) * 0.02
+      });
     }
-    particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const particlesMat = new THREE.PointsMaterial({ size: 0.03, color: 0xffffff, transparent: true, opacity: 0.3 });
+
+    const particlesGeo = new THREE.BufferGeometry();
+    particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particlesMat = new THREE.PointsMaterial({ color: 0x00ffcc, size: 0.08, transparent: true, opacity: 0.6 });
     const particles = new THREE.Points(particlesGeo, particlesMat);
-    scene.add(particles);
+    group.add(particles);
+
+    const linesGeo = new THREE.BufferGeometry();
+    const linesMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1 });
+    const linesMesh = new THREE.LineSegments(linesGeo, linesMat);
+    group.add(linesMesh);
 
     let mouseX = 0;
     let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
-
     const windowHalfX = window.innerWidth / 2;
     const windowHalfY = window.innerHeight / 2;
 
@@ -103,25 +86,45 @@ export function initGraphics() {
       requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
       
-      core.rotation.y = elapsedTime * 0.1;
-      core.rotation.x = elapsedTime * 0.05;
+      group.rotation.y += (mouseX * 0.5 - group.rotation.y) * 0.05;
+      group.rotation.x += (mouseY * 0.5 - group.rotation.x) * 0.05;
       
-      shell.rotation.y = elapsedTime * -0.08;
-      shell.rotation.z = elapsedTime * 0.03;
-
-      ringGroup.children.forEach(ring => {
-        ring.rotation.x += ring.userData.rotationSpeed.x;
-        ring.rotation.y += ring.userData.rotationSpeed.y;
-        ring.rotation.z += ring.userData.rotationSpeed.z;
-      });
-
-      particles.rotation.y = elapsedTime * 0.02;
-
-      targetX = mouseX * 2;
-      targetY = mouseY * 2;
+      const posAttribute = particlesGeo.attributes.position;
+      const posArray = posAttribute.array;
       
-      group.rotation.y += (targetX - group.rotation.y) * 0.05;
-      group.rotation.x += (targetY - group.rotation.x) * 0.05;
+      // Update positions
+      for(let i = 0; i < particleCount; i++) {
+        posArray[i * 3] += velocities[i].x;
+        posArray[i * 3 + 1] += velocities[i].y;
+        posArray[i * 3 + 2] += velocities[i].z;
+        
+        // Wrap around bounds
+        if(posArray[i * 3] > 12.5 || posArray[i * 3] < -12.5) velocities[i].x *= -1;
+        if(posArray[i * 3 + 1] > 12.5 || posArray[i * 3 + 1] < -12.5) velocities[i].y *= -1;
+        if(posArray[i * 3 + 2] > 12.5 || posArray[i * 3 + 2] < -12.5) velocities[i].z *= -1;
+      }
+      posAttribute.needsUpdate = true;
+      
+      // Update lines
+      const linePositions = [];
+      const threshold = 3.0; // Distance threshold to draw a line
+      
+      for(let i = 0; i < particleCount; i++) {
+        for(let j = i + 1; j < particleCount; j++) {
+          const dx = posArray[i * 3] - posArray[j * 3];
+          const dy = posArray[i * 3 + 1] - posArray[j * 3 + 1];
+          const dz = posArray[i * 3 + 2] - posArray[j * 3 + 2];
+          const distSq = dx*dx + dy*dy + dz*dz;
+          
+          if(distSq < threshold * threshold) {
+            linePositions.push(
+              posArray[i * 3], posArray[i * 3 + 1], posArray[i * 3 + 2],
+              posArray[j * 3], posArray[j * 3 + 1], posArray[j * 3 + 2]
+            );
+          }
+        }
+      }
+      linesGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
       
       camera.position.x += (mouseX * 5 - camera.position.x) * 0.02;
       camera.position.y += (-mouseY * 5 - camera.position.y) * 0.02;

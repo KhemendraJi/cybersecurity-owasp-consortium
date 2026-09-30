@@ -19,6 +19,8 @@ gsap.registerPlugin(ScrollTrigger);
 // ── State ──
 let secureScene = null;
 let lenis = null;
+let cdInterval = null;
+let eventModalListenersAdded = false;
 
 
 
@@ -66,7 +68,7 @@ function initNavbar() {
   const hamburger = document.querySelector('.navbar__hamburger');
   const mobileNav = document.getElementById('mobile-nav');
   const mobileNavClose = document.querySelector('.mobile-nav__close');
-  const mobileLinks = document.querySelectorAll('.mobile-nav__link');
+  let lastNavFocus = null;
 
   // Scroll effect
   window.addEventListener('scroll', () => {
@@ -78,13 +80,19 @@ function initNavbar() {
     hamburger.addEventListener('click', () => {
       const isOpen = mobileNav.classList.toggle('open');
       hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
 
       if (isOpen) {
+        lastNavFocus = document.activeElement;
         const links = mobileNav.querySelectorAll('.mobile-nav__link');
         gsap.fromTo(links,
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, stagger: 0.06, duration: 0.4, ease: 'power2.out' }
         );
+        // Focus close button on open
+        setTimeout(() => mobileNavClose?.focus(), 100);
+      } else {
+        if (lastNavFocus) lastNavFocus.focus();
       }
     });
 
@@ -92,12 +100,38 @@ function initNavbar() {
     const closeNav = () => {
       mobileNav.classList.remove('open');
       hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      if (lastNavFocus) {
+        lastNavFocus.focus();
+        lastNavFocus = null;
+      }
     };
     
     mobileNavClose?.addEventListener('click', closeNav);
     
     mobileNav.querySelectorAll('.mobile-nav__link').forEach(link => {
       link.addEventListener('click', closeNav);
+    });
+
+    // Trap focus inside mobile nav when open
+    mobileNav.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeNav();
+      }
+      if (e.key === 'Tab') {
+        const focusable = mobileNav.querySelectorAll('a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     });
   }
 }
@@ -122,13 +156,13 @@ function initHeroV2() {
     setInterval(updateClock, 1000);
   }
 
-  // Hero entrance: staggered fade-up (opacity starts at 0 in CSS)
-  gsap.to('.hero-v2__tagrow', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.05 });
-  gsap.to('.hero-v2__title',  { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.18 });
-  gsap.to('.hero-v2__rule',   { opacity: 1,        duration: 0.5, ease: 'none',       delay: 0.28 });
-  gsap.to('.hero-v2__desc-row',{ opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.36 });
-  gsap.to('.hero-v2__stage',  { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.50 });
-  gsap.to('.hero-v2__stats',  { opacity: 1,        duration: 0.6, ease: 'power2.out', delay: 0.65 });
+  // Hero entrance: staggered fade-up
+  gsap.fromTo('.hero-v2__tagrow', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.05 });
+  gsap.fromTo('.hero-v2__title',  { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.18 });
+  gsap.fromTo('.hero-v2__rule',   { opacity: 0 }, { opacity: 1,        duration: 0.5, ease: 'none',       delay: 0.28 });
+  gsap.fromTo('.hero-v2__desc-row',{ opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.36 });
+  gsap.fromTo('.hero-v2__stage',  { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.50 });
+  gsap.fromTo('.hero-v2__stats',  { opacity: 0 }, { opacity: 1,        duration: 0.6, ease: 'power2.out', delay: 0.65 });
 
   // Magnetic buttons
   document.querySelectorAll('.magnetic-btn').forEach(btn => {
@@ -282,19 +316,42 @@ function initScrollAnimations() {
 // ============================================================
 function initEventModal() {
   const modal = document.getElementById('event-modal');
+  if (!modal) return;
   const backdrop = modal.querySelector('.event-modal__backdrop');
   const content = modal.querySelector('.event-modal__content');
+  let lastFocusedElement = null;
+
+  const closeModal = () => {
+    gsap.to(content, {
+      opacity: 0, scale: 0.95, y: 20,
+      duration: 0.25,
+      ease: 'power2.in',
+      onComplete: () => {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        if (lastFocusedElement) {
+          lastFocusedElement.focus();
+        }
+      }
+    });
+  };
 
   function openModal(eventId) {
     const event = events.find(e => e.id === parseInt(eventId));
     if (!event) return;
 
+    lastFocusedElement = document.activeElement;
+
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'event-modal-title');
+
     content.innerHTML = `
-      <button class="event-modal__close" aria-label="Close">✕</button>
+      <button class="event-modal__close" aria-label="Close" style="cursor:pointer;">✕</button>
       <img class="event-modal__image" src="${event.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80'}" alt="${event.title}" />
       <div class="event-modal__body">
         <span class="event-modal__tag">${event.category}</span>
-        <h2 class="event-modal__title">${event.title}</h2>
+        <h2 id="event-modal-title" class="event-modal__title">${event.title}</h2>
         <div class="event-modal__meta">
           <div class="event-modal__meta-item">📅 <span>${event.day} ${event.month} ${event.year}</span></div>
           <div class="event-modal__meta-item">📍 <span>${event.location}</span></div>
@@ -308,8 +365,8 @@ function initEventModal() {
           <p class="event-modal__desc">${event.speakers.join(', ')}</p>
         ` : ''}
         <div class="event-modal__cta-row">
-          <a href="${event.registrationLink || '#'}" class="btn btn--primary">Register <span class="btn-arrow">→</span></a>
-          <button class="btn event-modal__close-btn">Close</button>
+          ${event.registrationLink ? `<a href="${event.registrationLink}" target="_blank" rel="noopener" class="btn btn--primary">Register <span class="btn-arrow">→</span></a>` : `<button class="btn btn--primary" disabled style="opacity:0.5; cursor:not-allowed;">Registration Closed</button>`}
+          <button class="btn event-modal__close-btn" style="cursor:pointer;">Close</button>
         </div>
       </div>
     `;
@@ -322,66 +379,51 @@ function initEventModal() {
       { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'power2.out' }
     );
 
-    // Close handlers
     const closeBtn = content.querySelector('.event-modal__close');
     const closeBtnAlt = content.querySelector('.event-modal__close-btn');
-    const closeModal = () => {
-      gsap.to(content, {
-        opacity: 0, scale: 0.95, y: 20,
-        duration: 0.25,
-        ease: 'power2.in',
-        onComplete: () => {
-          modal.classList.remove('open');
-          document.body.style.overflow = '';
-        }
-      });
-    };
-
+    
     closeBtn?.addEventListener('click', closeModal);
     closeBtnAlt?.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', closeModal);
+    closeBtn?.focus();
   }
 
-  // Delegate click for event cards
-  document.addEventListener('click', (e) => {
-    const eventTrigger = e.target.closest('[data-event-id]');
-    if (eventTrigger) {
-      openModal(eventTrigger.dataset.eventId);
-    }
-  });
-
-  // ESC key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) {
-      modal.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  });
-}
-
-// ============================================================
-// CTF FILTER
-// ============================================================
-function initCTFFilter() {
-  document.addEventListener('click', (e) => {
-    const tab = e.target.closest('[data-ctf-filter]');
-    if (!tab) return;
-
-    const filter = tab.dataset.ctfFilter;
-    const grid = document.getElementById('ctf-challenges-grid');
-    if (!grid) return;
-
-    // Update active tab
-    tab.closest('.ctf-categories__tabs')?.querySelectorAll('.ctf-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-
-    // Filter cards
-    grid.querySelectorAll('.challenge-card').forEach(card => {
-      const cat = card.dataset.ctfCategory;
-      card.style.display = (filter === 'All' || cat === filter) ? '' : 'none';
+  if (!eventModalListenersAdded) {
+    backdrop?.addEventListener('click', closeModal);
+    
+    // Delegate click for event cards
+    document.addEventListener('click', (e) => {
+      const eventTrigger = e.target.closest('[data-event-id]');
+      if (eventTrigger) {
+        openModal(eventTrigger.dataset.eventId);
+      }
     });
-  });
+
+    // ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+      
+      // Focus trapping
+      if (e.key === 'Tab' && modal.classList.contains('open')) {
+        const focusable = content.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    });
+    eventModalListenersAdded = true;
+  }
 }
+
 
 // ============================================================
 // EVENTS PAGE FILTER
@@ -397,21 +439,138 @@ function initEventsFilter() {
     tab.closest('.events-filter__body')?.querySelectorAll('.filter-pill').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
 
+    const searchInput = document.getElementById('events-search');
+    const term = searchInput ? searchInput.value.toLowerCase() : '';
+
     // Filter cards in all grids
     document.querySelectorAll('.event-card[data-category]').forEach(card => {
       const cat = card.dataset.category;
-      const matches = filter === 'All' || cat.toUpperCase() === filter.toUpperCase();
-      card.style.display = matches ? '' : 'none';
+      const title = card.dataset.title || '';
+      const matchesCat = filter === 'All' || cat.toUpperCase() === filter.toUpperCase();
+      const matchesSearch = title.includes(term);
+      card.style.display = (matchesCat && matchesSearch) ? '' : 'none';
     });
 
     // Hide section blocks if all their cards are hidden
     document.querySelectorAll('.events-section-block').forEach(block => {
-      const grid = block.querySelector('.events-page__grid');
-      if (!grid) return;
-      const visible = Array.from(grid.querySelectorAll('.event-card')).some(c => c.style.display !== 'none');
-      block.style.display = visible ? '' : 'none';
+      const hasVisible = Array.from(block.querySelectorAll('.event-card')).some(c => c.style.display !== 'none');
+      block.style.display = hasVisible ? '' : 'none';
     });
   });
+}
+
+function initEventsPageScripts() {
+  const cd = document.getElementById('countdown');
+  if (cd) {
+    const updateCD = () => {
+      const target = new Date(cd.getAttribute('data-date')).getTime();
+      const now = new Date().getTime();
+      const diff = target - now;
+      if(diff < 0) return;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+      const cdD = document.getElementById('cd-d');
+      const cdH = document.getElementById('cd-h');
+      const cdM = document.getElementById('cd-m');
+      const cdS = document.getElementById('cd-s');
+      if (cdD) cdD.innerText = d.toString().padStart(2,'0');
+      if (cdH) cdH.innerText = h.toString().padStart(2,'0');
+      if (cdM) cdM.innerText = m.toString().padStart(2,'0');
+      if (cdS) cdS.innerText = s.toString().padStart(2,'0');
+    };
+    if (cdInterval) clearInterval(cdInterval);
+    cdInterval = setInterval(updateCD, 1000);
+    updateCD();
+  }
+
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    // Need to clear old listeners if re-rendered, but they are newly created dom nodes
+    btn.addEventListener('click', (e) => {
+      const view = e.target.dataset.view;
+      const viewGrid = document.getElementById('view-grid');
+      const viewTimeline = document.getElementById('view-timeline');
+      const viewTerminal = document.getElementById('view-terminal');
+      if (viewGrid) viewGrid.style.display = view === 'grid' ? 'grid' : 'none';
+      if (viewTimeline) viewTimeline.style.display = view === 'timeline' ? 'block' : 'none';
+      if (viewTerminal) viewTerminal.style.display = view === 'terminal' ? 'block' : 'none';
+    });
+  });
+
+  const searchInput = document.getElementById('events-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const activeFilterTab = document.querySelector('.events-filter__body .filter-pill.active');
+      const currentFilter = activeFilterTab ? activeFilterTab.dataset.eventFilter : 'All';
+      
+      document.querySelectorAll('.event-card[data-category]').forEach(card => {
+        const cat = card.dataset.category;
+        const title = card.dataset.title || '';
+        const matchesCat = currentFilter === 'All' || cat.toUpperCase() === currentFilter.toUpperCase();
+        const matchesSearch = title.includes(term);
+        card.style.display = (matchesCat && matchesSearch) ? '' : 'none';
+      });
+      
+      document.querySelectorAll('.events-section-block').forEach(block => {
+        const hasVisible = Array.from(block.querySelectorAll('.event-card')).some(c => c.style.display !== 'none');
+        block.style.display = hasVisible ? '' : 'none';
+      });
+    });
+  }
+}
+
+function initContactPageScripts() {
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('contact-submit');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'SENDING...';
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        const container = document.getElementById('contact-form-container');
+        const original = container.innerHTML;
+        container.innerHTML = '<div style="font-family:var(--font-mono); color:#ff4444; font-size:0.8rem; line-height:1.6;"><div>> init handshake...</div><div>> encrypting payload [256-bit AES]...</div><div>> establishing secure tunnel...</div><div style="margin-top:1rem;">[ERROR] Connection refused. No backend service configured to handle this request. Please contact us via email directly.</div></div>';
+        
+        setTimeout(() => {
+          container.innerHTML = original;
+          initContactPageScripts();
+        }, 5000);
+      }, 1500);
+    });
+  }
+}
+
+function initSponsorsPageScripts() {
+  const form = document.getElementById('sponsor-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('sp-submit');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'SUBMITTING...';
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        const note = form.querySelector('.cf-note');
+        if (note) {
+          const originalNote = note.innerText;
+          note.innerText = '[ERROR] Submission failed: No backend configured.';
+          note.style.color = '#ff4444';
+          setTimeout(() => {
+            note.innerText = originalNote;
+            note.style.color = '';
+          }, 5000);
+        }
+      }, 1500);
+    });
+  }
 }
 
 // ============================================================
@@ -441,6 +600,11 @@ function initGalleryFilter() {
 // ROUTER — PAGE RENDERING
 // ============================================================
 function renderPage(routeName) {
+  if (cdInterval) {
+    clearInterval(cdInterval);
+    cdInterval = null;
+  }
+
   const container = document.getElementById('page-container');
 
   const pages = {
@@ -457,25 +621,34 @@ function renderPage(routeName) {
   container.innerHTML = renderFn();
 
   if (routeName === 'home') {
-    if (window.__preloaderDone) {
-      requestAnimationFrame(() => {
-        initHeroV2();
-      });
-    }
+    requestAnimationFrame(() => {
+      initHeroV2();
+    });
   } else {
     if (!window.__appReady) {
       window.__appReady = true;
       window.dispatchEvent(new Event('app:ready'));
     }
+    if (routeName === 'events') {
+      requestAnimationFrame(() => {
+        initEventsPageScripts();
+      });
+    } else if (routeName === 'contact') {
+      requestAnimationFrame(() => {
+        initContactPageScripts();
+      });
+    } else if (routeName === 'sponsors') {
+      requestAnimationFrame(() => {
+        initSponsorsPageScripts();
+      });
+    }
   }
 
-  // Re-initialize scroll animations after content change (only if preloader done)
-  if (window.__preloaderDone) {
-    requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-      initScrollAnimations();
-    });
-  }
+  // Re-initialize scroll animations after content change
+  requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
+    initScrollAnimations();
+  });
 }
 
 // ============================================================
@@ -486,11 +659,7 @@ async function init() {
   const router = new Router(renderPage);
   router.init();
 
-  if (!window.__preloaderDone) {
-    await new Promise(r => addEventListener('preloader:done', r, { once: true }));
-  }
-
-  // Initialize systems after preloader
+  // Initialize systems
   initLenis();
   initBackground();
   initNavbar();

@@ -45,8 +45,9 @@ export function renderGalleryPage() {
       <div class="gallery-page__hero">
         <div class="gallery-page__heading-wrap">
           ${SectionOverline('04', 'GALLERY', '')}
-          <h1 class="gallery-page__heading">
-            EVENT ${OutlineWord('CUTOUTS')}
+          <h1 class="hero-v2__title">
+            <span class="hero-v2__line1 scramble-text">EVENT</span>
+            <span class="hero-v2__line2 outline-word">CUTOUTS</span>
           </h1>
         </div>
         <div class="gallery-page__hero-meta">

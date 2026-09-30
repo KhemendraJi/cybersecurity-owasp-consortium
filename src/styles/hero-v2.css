@@ -20,7 +20,6 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: 2rem;
-  opacity: 0;
 }
 
 .hero-v2__location {
@@ -42,11 +41,9 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* â”€â”€ Title â”€â”€ */
 .hero-v2__title {
   margin-bottom: 2rem;
   display: block;
-  opacity: 0;
 }
 
 /* Outfit Black static â€” outline (no scramble) */

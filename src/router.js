@@ -75,28 +75,6 @@ export class Router {
 
   async transition(routeName) {
     const container = document.getElementById('page-container');
-    const preloader = document.getElementById('preloader');
-    const shutterTop = document.querySelector('.pl-top');
-    const shutterBottom = document.querySelector('.pl-bottom');
-
-    if (preloader) {
-      preloader.style.display = 'block';
-      preloader.style.pointerEvents = 'auto';
-      // Hide preloader content except shutters
-      const canvas = document.getElementById('pl-canvas');
-      const hud = document.querySelector('.pl-hud');
-      if (canvas) canvas.style.opacity = '0';
-      if (hud) hud.style.opacity = '0';
-
-      // Close shutters
-      shutterTop.style.transition = 'none';
-      shutterBottom.style.transition = 'none';
-      await gsap.to([shutterTop, shutterBottom], {
-        y: '0%',
-        duration: 0.3,
-        ease: 'power2.in'
-      });
-    }
 
     // Swap content
     this.onRoute(routeName);
@@ -107,26 +85,6 @@ export class Router {
 
     // Set page container to normal
     gsap.set(container, { opacity: 1, y: 0 });
-
-    if (preloader) {
-      // Open shutters
-      gsap.to(shutterTop, {
-        y: '-101%',
-        duration: 0.4,
-        ease: 'power3.out',
-        delay: 0.1
-      });
-      gsap.to(shutterBottom, {
-        y: '101%',
-        duration: 0.4,
-        ease: 'power3.out',
-        delay: 0.1,
-        onComplete: () => {
-          preloader.style.display = 'none';
-          preloader.style.pointerEvents = 'none';
-        }
-      });
-    }
   }
 
   init() {
