@@ -47,12 +47,12 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 .os-window {
   position: relative;
   width: 100%;
-  background: rgba(10, 10, 10, 0.55);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-top: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 0;
+  border-radius: var(--radius-md);
   overflow: hidden;
   margin-bottom: 3rem;
   box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset,
@@ -97,7 +97,7 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 
 .os-window__header {
   height: 32px;
-  background: rgba(255,255,255,0.03);
+  background:transparent;
   border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
@@ -189,11 +189,11 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 .section-title {
   font-family: var(--font-display);
   font-size: var(--fs-h1);
-  font-weight: var(--fw-black);
-  color: #ffffff;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-primary);
   line-height: var(--lh-heading);
   margin-bottom: var(--space-md);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 /* Outline/hollow text effect for accent word */
@@ -223,56 +223,68 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 }
 
 /* ═══════════════════════════════════════════════
-   BUTTONS — Sharp, high-contrast
+   BUTTONS — Polished & Accessible
    ═══════════════════════════════════════════════ */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.8rem 1.6rem;
+  padding: 0.85rem 1.75rem;
   border: 1px solid var(--color-border-mid);
-  background: transparent;
-  color: var(--color-white-90);
+  background:transparent;
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
   transition: all var(--duration-normal) var(--ease-out);
   position: relative;
   overflow: hidden;
   cursor: pointer;
   text-decoration: none;
-  border-radius: 0;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .btn::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: #ffffff;
-  transform: scaleX(0);
-  transform-origin: left;
+  background: var(--color-white);
+  transform: scaleY(0);
+  transform-origin: bottom;
   transition: transform var(--duration-normal) var(--ease-out);
   z-index: -1;
 }
 
 .btn:hover {
-  border-color: #ffffff;
-  color: #000000;
+  border-color: var(--color-white);
+  color: var(--color-black);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
 }
 
-.btn:hover::before { transform: scaleX(1); }
+.btn:hover::before { transform: scaleY(1); }
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
 
 .btn--primary {
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
-  font-weight: var(--fw-bold);
+  background: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
 }
 
-.btn--primary::before { background: var(--color-accent); }
-.btn--primary:hover { color: #000000; border-color: var(--color-accent); }
+.btn--primary::before { background: var(--color-border-bright); }
+.btn--primary:hover { 
+  color: var(--color-black); 
+  border-color: var(--color-border-bright);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+}
 
 .btn .btn-arrow {
   transition: transform var(--duration-fast) var(--ease-out);
@@ -280,21 +292,25 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 .btn:hover .btn-arrow { transform: translateX(4px); }
 
 .btn:focus-visible {
-  outline: 2px solid #ff1a1a;
+  outline: 2px solid var(--color-white);
   outline-offset: 4px;
 }
 
 /* ── Card Base ── */
 .card {
-  background: var(--color-black-card);
+  background: rgba(17, 17, 17, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
-  border-radius: 0;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--duration-normal) var(--ease-out);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 .card:hover {
   border-color: var(--color-border-bright);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Unified Card Styles (Events, Team, What-We-Do, Collabs) */
@@ -572,7 +588,7 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
   overflow: hidden;
 }
 .border-grid__cell:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background:transparent;
 }
 .border-grid__cell::before,
 .border-grid__cell::after {
@@ -649,7 +665,7 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
   height: 4px;
 }
 .scroll-track::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.05);
+  background:transparent;
   border: 1px solid var(--color-border);
 }
 .scroll-track::-webkit-scrollbar-thumb {
@@ -684,7 +700,7 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 }
 
 .event-card:hover, .faculty-card:hover, .member-card:hover, .gallery-item:hover, .border-grid-cell:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background:transparent !important;
   border-color: rgba(255, 255, 255, 0.25) !important;
   box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.04),
               0 8px 30px rgba(0, 0, 0, 0.6) !important;
@@ -695,7 +711,7 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 .cf-input:focus {
   border-bottom-color: rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05) !important;
-  background: rgba(255, 255, 255, 0.02) !important;
+  background:transparent !important;
 }
 
 /* ── Button Premium Hover ── */

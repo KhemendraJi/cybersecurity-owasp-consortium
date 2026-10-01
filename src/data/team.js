@@ -8,17 +8,19 @@ function avatarUrl(name, bg = '000000') {
 export const faculty = [
   { name: 'Dr. Anil Sharma', role: 'Faculty Advisor', linkedin: null, image: null },
   { name: 'Dr. Rajesh Kumar', role: 'Faculty Co-Advisor', linkedin: null, image: null },
+  { name: 'Faculty 3', role: 'Faculty Coordinator', linkedin: null, image: null },
+  { name: 'Faculty 4', role: 'Faculty Coordinator', linkedin: null, image: null },
 ];
 
 export const finalYear = [
   { name: 'Pulkit Gangil', role: 'President', linkedin: 'https://www.linkedin.com/in/pulkit1504/', image: '/src/assets/team/Pulkit-Gangil.jpg' },
   { name: 'Pradeep Singh Yadav', role: 'Vice President', linkedin: 'https://www.linkedin.com/in/pradeepsinghyadav/', image: '/src/assets/team/Pradeep-Singh-Yadav.jpg' },
   { name: 'Abizer Mhowwala', role: 'Treasurer', linkedin: 'https://www.linkedin.com/in/abizer-mhowwala-9668492aa/', image: '/src/assets/team/Abizer-Mhowwala.jpg' },
-  { name: 'Ashish Mishra', role: 'Coordinator', linkedin: 'https://www.linkedin.com/in/ashish-mishra-54419231a/', image: '/src/assets/team/Ashish-Mishra.jpg' },
-  { name: 'Tanishq Aggarwal', role: 'Co-Coordinator', linkedin: 'https://www.linkedin.com/in/tanishq-agrawal1?utm_source=share_via&utm_content=profile&utm_medium=member_android', image: '/src/assets/team/Tanishq-Agrawal.jpeg' },
 ];
 
 export const coreTeam = [
+  { name: 'Ashish Mishra', role: 'Coordinator', linkedin: 'https://www.linkedin.com/in/ashish-mishra-54419231a/', image: '/src/assets/team/Ashish-Mishra.jpg' },
+  { name: 'Tanishq Aggarwal', role: 'Co-Coordinator', linkedin: 'https://www.linkedin.com/in/tanishq-agrawal1?utm_source=share_via&utm_content=profile&utm_medium=member_android', image: '/src/assets/team/Tanishq-Agrawal.jpeg' },
   { name: 'Mudit Kalya', role: 'Technical Head', linkedin: 'https://www.linkedin.com/in/mudit-kalya-884479324', image: '/src/assets/team/Mudit-Kalya.jpeg' },
   { name: 'Raghav Verma', role: 'Web Development Head', linkedin: 'https://www.linkedin.com/in/raghav-verma-9b845a318', image: '/src/assets/team/Raghav-Verma.jpeg' },
   { name: 'Shivansh Kumar Sahu', role: 'Event Management Head', linkedin: null, image: '/src/assets/team/Shivansh-Kumar-Sahu.jpg' },
