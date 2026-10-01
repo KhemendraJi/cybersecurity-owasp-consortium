@@ -37,7 +37,7 @@ const tiers = [
 
 export function renderSponsorsPage() {
   return `
-    <div class="sponsors-page">
+    <div class="sponsors-page" style="padding-bottom: 3rem;">
       <div class="container">
 
         <!-- HERO -->

@@ -65,8 +65,16 @@
 
 /* Marquee strip footer variant */
 .marquee-strip--footer {
-  border: none;
-  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  margin-top: 0;
 }
 
 .footer {

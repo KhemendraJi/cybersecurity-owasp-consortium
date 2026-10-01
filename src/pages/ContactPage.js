@@ -3,7 +3,7 @@ import { OutlineWord, SectionOverline } from '../components.js';
 
 export function renderContactPage() {
   return `
-    <div class="contact-page">
+    <div class="contact-page" style="padding-bottom: 3rem;">
       <div class="container">
 
         <!-- PAGE HERO -->

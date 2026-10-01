@@ -101,7 +101,7 @@
 .contact-form__textarea {
   width: 100%;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #ffffff;
   color: var(--color-text-primary);
   font-family: var(--font-mono);
   font-size: 0.85rem;
