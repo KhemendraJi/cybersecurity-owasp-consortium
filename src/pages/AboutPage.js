@@ -118,22 +118,68 @@ export function renderAboutPage() {
         </div>
 
         <!-- TIMELINE -->
-        <div class="about-timeline-section">
-          <div class="about-whatwedo-header reveal-up">
+        <div class="about-timeline-section" style="margin-top: 6rem; padding-bottom: 4rem;">
+          <div class="about-whatwedo-header reveal-up" style="margin-bottom:4rem;">
             <span class="section-overline">MILESTONES</span>
             <h2 class="section-title">OUR <span>JOURNEY</span></h2>
           </div>
-          <div class="about-timeline">
-            ${timeline.map((t, i) => `
-              <div class="about-timeline-entry reveal-up" style="--delay:${i * 0.08}s">
-                <div class="about-timeline-entry__year">${t.year}</div>
-                <div class="about-timeline-entry__connector">
-                  <div class="about-timeline-entry__dot"></div>
-                  ${i < timeline.length - 1 ? '<div class="about-timeline-entry__line"></div>' : ''}
-                </div>
-                <div class="about-timeline-entry__text">${t.event}</div>
+          <div class="about-timeline-network" style="position:relative; width:100%; min-height:400px; border:1px solid rgba(255,255,255,0.1); padding:2rem; overflow:hidden;">
+            <!-- Background Grid -->
+            <div style="position:absolute; inset:0; background:linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size:40px 40px;"></div>
+            
+            <!-- Nodes -->
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1; padding-top:40px;">
+              
+              <!-- Connecting Line -->
+              <div style="position:absolute; top:46px; left:20px; right:20px; height:2px; background:rgba(255,255,255,0.1); z-index:-1;" class="reveal-up">
+                <div class="timeline-line-anim" style="width:100%; height:100%; background:var(--color-white); transform:scaleX(0); transform-origin:left; transition:transform 2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;"></div>
               </div>
-            `).join('')}
+
+              ${timeline.map((t, i) => `
+                <div class="timeline-node reveal-up" style="--delay:${i * 0.1}s; flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; position:relative;">
+                  <div class="timeline-node-dot" style="width:14px; height:14px; border-radius:50%; background:#000; border:2px solid #fff; margin-bottom:1rem; position:relative; box-shadow:0 0 10px rgba(255,255,255,0.8); z-index:2;">
+                    <div style="position:absolute; inset:-4px; border:1px solid rgba(255,255,255,0.5); border-radius:50%; animation: pulse 2s infinite ${i * 0.2}s;"></div>
+                  </div>
+                  <div class="timeline-node-year" style="font-family:var(--font-mono); font-size:1.2rem; font-weight:bold; color:#fff; margin-bottom:0.5rem;">${t.year}</div>
+                  <div class="timeline-node-desc" style="font-size:0.8rem; color:var(--color-text-secondary); max-width:140px;">${t.event}</div>
+                </div>
+              `).join('')}
+            </div>
+            
+            <style>
+              .reveal-up.is-revealed .timeline-line-anim { transform: scaleX(1) !important; }
+              @keyframes pulse {
+                0% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(2.5); opacity: 0; }
+              }
+              @media (max-width: 768px) {
+                .about-timeline-network > div:nth-child(2) {
+                  flex-direction: column;
+                  align-items: flex-start;
+                  gap: 3rem;
+                }
+                .about-timeline-network > div:nth-child(2) > div:first-child {
+                  width: 2px !important;
+                  height: 100% !important;
+                  top: 20px !important;
+                  left: 26px !important;
+                }
+                .timeline-line-anim {
+                  transform-origin: top !important;
+                  transform: scaleY(0);
+                }
+                .reveal-up.is-revealed .timeline-line-anim { transform: scaleY(1) !important; }
+                .timeline-node {
+                  flex-direction: row !important;
+                  text-align: left !important;
+                  align-items: flex-start !important;
+                }
+                .timeline-node-year { margin-bottom: 0 !important; margin-right: 1rem !important; }
+                .timeline-node-dot { margin-bottom: 0 !important; margin-right: 1rem !important; }
+                .timeline-node-desc { max-width: none !important; }
+              }
+
+            </style>
           </div>
         </div>
 

@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap');
 
 /* ===== GLOBAL STYLES — EDITORIAL BRUTALIST CYBER ===== */
+html {
+  background-color: #000000;
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   color: var(--color-text-primary);
-  background-color: var(--color-black);
+  background-color: transparent;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -42,14 +46,23 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 .os-window {
   position: relative;
   width: 100%;
-  background: rgba(10, 10, 10, 0.78);
-  border: 1px solid var(--color-border);
-  border-top: 1px solid var(--color-border-mid);
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 0;
   overflow: hidden;
-  margin-bottom: var(--space-section);
+  margin-bottom: 3rem;
   box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset,
-              0 12px 48px rgba(0,0,0,0.75);
+              0 20px 60px rgba(0,0,0,0.8);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.os-window:hover {
+  border-top-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset,
+              0 24px 70px rgba(0,0,0,0.9);
 }
 
 .os-window::before,
@@ -139,6 +152,22 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: var(--space-sm);
+  width: 100%;
+}
+
+.section-overline::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  margin-left: 1rem;
+}
+
+.section-overline.is-revealed::after {
+  transform: scaleX(1);
 }
 
 /* The "01" number before the dashes */
@@ -249,6 +278,11 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 }
 .btn:hover .btn-arrow { transform: translateX(4px); }
 
+.btn:focus-visible {
+  outline: 2px solid #ff1a1a;
+  outline-offset: 4px;
+}
+
 /* ── Card Base ── */
 .card {
   background: var(--color-black-card);
@@ -260,6 +294,94 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
 .card:hover {
   border-color: var(--color-border-bright);
   transform: translateY(-2px);
+}
+
+/* Unified Card Styles (Events, Team, What-We-Do, Collabs) */
+.event-card, .team-member-card, .border-grid__cell, .collab-node {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+  height: 100%;
+}
+
+.event-card::before, .team-member-card::before, .border-grid__cell::before, .collab-node::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px;
+  height: 2px;
+  background: #ff1a1a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.event-card:hover, .team-member-card:hover, .border-grid__cell:hover, .collab-node:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-4px) perspective(1000px) rotateX(2deg) rotateY(-2deg) !important;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.event-card:hover::before, .team-member-card:hover::before, .border-grid__cell:hover::before, .collab-node:hover::before {
+  transform: scaleX(1);
+}
+
+/* ── Form Inputs ── */
+.cf-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.cf-group::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: #ff1a1a;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.cf-input:focus ~ .cf-group::after,
+.cf-group:focus-within::after {
+  transform: scaleX(1);
+}
+.cf-input:focus + .cf-label, .cf-input:not(:placeholder-shown) + .cf-label {
+  transform: translateY(-1.5rem);
+  font-size: 0.65rem;
+  color: var(--color-white);
+}
+
+.cf-validation {
+  position: absolute;
+  bottom: -1.25rem;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #ff1a1a;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+.cf-input:invalid:not(:placeholder-shown) ~ .cf-validation {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-success-state {
+  display: none;
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--color-green);
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--color-green);
+  margin-bottom: 1rem;
+}
+.form-success-state.active {
+  display: block;
+  animation: card-appear 0.4s ease-out;
 }
 
 /* ── Grid Helpers ── */
@@ -323,7 +445,7 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
   position: fixed; inset: 0;
   z-index: var(--z-bg);
   pointer-events: none;
-  background-color: var(--color-black);
+  background-color: transparent;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
@@ -333,7 +455,7 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
   content: '';
   position: absolute; inset: 0;
   background: radial-gradient(circle at center, transparent 60%,
-    var(--color-black) 85%);
+    rgba(0,0,0,0.4) 85%);
 }
 
 
@@ -547,28 +669,35 @@ h1, h2, h3, h4, h5, h6, nav, label, input, textarea, select, button {
   opacity: 0.2;
 }
 
-/* ── Custom Cursor ── */
-body, a, button, input, select, textarea, [data-event-id], .event-card, .btn {
-  cursor: none !important;
+
+
+/* ── Premium Card Aesthetics ── */
+.event-card, .faculty-card, .member-card, .border-grid-cell, .gallery-item {
+  background: rgba(10, 10, 10, 0.4) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--color-white);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-  
+
+.event-card:hover, .faculty-card:hover, .member-card:hover, .gallery-item:hover, .border-grid-cell:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.04),
+              0 8px 30px rgba(0, 0, 0, 0.6) !important;
+  transform: translateY(-4px) !important;
 }
-.custom-cursor.active {
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.1);
+
+/* ── Form Inputs Premium Focus ── */
+.cf-input:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* ── Button Premium Hover ── */
+.btn:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
 }
 
 /* Accessibility: Reduced Motion */

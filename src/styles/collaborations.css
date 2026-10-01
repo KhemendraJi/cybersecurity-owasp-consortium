@@ -123,12 +123,13 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: grayscale(1) brightness(3);
-  transition: filter 0.3s ease;
+  filter: grayscale(1) opacity(0.6);
+  transition: all 0.3s ease;
 }
 
 .collab-node:hover .collab-node__logo img {
-  filter: grayscale(0) brightness(1);
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.1);
 }
 
 .collab-node__name {

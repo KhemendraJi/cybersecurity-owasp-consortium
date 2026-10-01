@@ -18,7 +18,7 @@ function renderMemberCard(m, idx) {
     <div class="team-member-card border-draw reveal-up" data-member-name="${m.name}" data-member-role="${m.role}" data-member-level="${level}" data-member-nodes="${nodes}" style="--delay:${idx * 0.05}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.02); display:flex; flex-direction:row; position:relative; overflow:visible; min-height:100px; align-items:stretch;">
       <div class="targeting-reticle"></div>
       <div class="team-member-card__photo-wrap depth-layer-1" style="width:90px; min-width:90px; align-self:stretch; position:relative; flex-shrink:0;">
-        <img class="team-member-card__photo" src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) brightness(0.8);" />
+        <img class="team-member-card__photo" src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" onerror="this.onerror=null; this.src='${getAvatar(m.name)}';" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) brightness(0.8);" />
       </div>
       <div class="team-member-card__info depth-layer-2" style="padding:1rem 1.25rem; border-left:1px solid var(--color-border); flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
         <div class="team-member-card__name" style="font-family:var(--font-display); font-size:clamp(0.85rem,1.5vw,1.15rem); text-transform:uppercase; margin-bottom:0.25rem; position:relative; z-index:2; overflow-wrap:anywhere; line-height:1.2;">${m.name}</div>
@@ -36,7 +36,7 @@ function renderMemberCard(m, idx) {
 function renderFacultyCard(f, idx) {
   return `
     <div class="team-faculty-card border-draw reveal-up" style="--delay:${idx * 0.08}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.02); display:flex; gap:2rem; padding:2rem; align-items:center;">
-      <img class="team-faculty-card__photo depth-layer-1" src="${f.image || getAvatar(f.name)}" alt="${f.name}" loading="lazy" style="width:120px; height:120px; object-fit:cover; filter:grayscale(1) brightness(0.8); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0) brightness(1.1)'" onmouseout="this.style.filter='grayscale(1) brightness(0.8)'" />
+      <img class="team-faculty-card__photo depth-layer-1" src="${f.image || getAvatar(f.name)}" alt="${f.name}" loading="lazy" onerror="this.onerror=null; this.src='${getAvatar(f.name)}';" style="width:120px; height:120px; object-fit:cover; filter:grayscale(1) brightness(0.8); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0) brightness(1.1)'" onmouseout="this.style.filter='grayscale(1) brightness(0.8)'" />
       <div class="team-faculty-card__info depth-layer-2" style="display:flex; flex-direction:column; gap:0.5rem;">
         <div class="team-faculty-card__badge" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-white); border:1px solid var(--color-border); padding:0.25rem 0.5rem; width:fit-content; margin-bottom:0.5rem;">FACULTY ADVISOR</div>
         <div class="team-faculty-card__name" style="font-family:var(--font-display); font-size:2rem; text-transform:uppercase;">${f.name}</div>
@@ -93,7 +93,7 @@ export function renderTeamPage() {
           <div class="team-grid--faculty">
             ${faculty.map((f, i) => `
               <div class="team-faculty-card border-draw reveal-up" style="--delay:${i * 0.08}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); display:flex; flex-direction:column; gap:1.5rem; padding:2.5rem; align-items:center; text-align:center;">
-                <img src="${f.image || getAvatar(f.name)}" alt="${f.name}" loading="lazy" style="width:160px; height:160px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.9); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0) brightness(1.1)'" onmouseout="this.style.filter='grayscale(1) brightness(0.9)'" />
+                <img src="${f.image || getAvatar(f.name)}" alt="${f.name}" loading="lazy" onerror="this.onerror=null; this.src='${getAvatar(f.name)}';" style="width:160px; height:160px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.9); transition:filter 0.3s;" onmouseover="this.style.filter='grayscale(0) brightness(1.1)'" onmouseout="this.style.filter='grayscale(1) brightness(0.9)'" />
                 <div style="display:flex; flex-direction:column; gap:0.5rem; align-items:center;">
                   <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-white); border:1px solid var(--color-border); padding:0.25rem 0.75rem; border-radius:20px;">FACULTY ADVISOR</div>
                   <div style="font-family:var(--font-display); font-size:2rem; text-transform:uppercase;">${f.name}</div>
@@ -111,7 +111,7 @@ export function renderTeamPage() {
             ${finalYear.map((m, i) => `
               <div class="team-member-card reveal-up" style="--delay:${i * 0.05}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.03); backdrop-filter:blur(5px); display:flex; flex-direction:column; padding:1.5rem; align-items:center; text-align:center; position:relative;">
                 <div style="position:absolute; top:0.5rem; right:0.5rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--color-text-dim);">ID_${Math.floor(Math.random()*9000)+1000}</div>
-                <img src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" style="width:80px; height:80px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.8); margin-bottom:1rem;" />
+                <img src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" onerror="this.onerror=null; this.src='${getAvatar(m.name)}';" style="width:80px; height:80px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.8); margin-bottom:1rem;" />
                 <div style="font-family:var(--font-display); font-size:1.1rem; text-transform:uppercase; margin-bottom:0.25rem;">${m.name}</div>
                 <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-text-dim); padding:0.2rem 0.5rem; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.5);">${m.role}</div>
               </div>
@@ -126,7 +126,7 @@ export function renderTeamPage() {
             ${coreTeam.map((m, i) => `
               <div class="core-card-wrap reveal-up" style="--delay:${i * 0.05}s; width:100%; height:280px; position:relative; transform-style:preserve-3d; transition:transform 0.6s; cursor:pointer;" onmouseover="this.style.transform='rotateY(180deg)'" onmouseout="this.style.transform='rotateY(0deg)'">
                 <div style="position:absolute; inset:0; backface-visibility:hidden; border:1px solid var(--color-border); background:rgba(255,255,255,0.02); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.5rem;">
-                  <img src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" style="width:120px; height:120px; object-fit:cover; filter:grayscale(1) brightness(0.8); margin-bottom:1.5rem;" />
+                  <img src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" onerror="this.onerror=null; this.src='${getAvatar(m.name)}';" style="width:120px; height:120px; object-fit:cover; filter:grayscale(1) brightness(0.8); margin-bottom:1.5rem;" />
                   <div style="font-family:var(--font-display); font-size:1.2rem; text-transform:uppercase; text-align:center;">${m.name}</div>
                 </div>
                 <div style="position:absolute; inset:0; backface-visibility:hidden; border:1px solid var(--color-border); background:rgba(20,20,20,0.95); transform:rotateY(180deg); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.5rem; text-align:center;">
@@ -153,7 +153,7 @@ export function renderTeamPage() {
           <div class="team-grid--members">
             ${members.map((m, i) => `
               <div class="member-chip reveal-up" style="--delay:${(i%10) * 0.02}s; border:1px solid var(--color-border); background:rgba(255,255,255,0.02); padding:0.5rem; display:flex; align-items:center; gap:0.75rem;">
-                <img src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" style="width:32px; height:32px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.8);" />
+                <img src="${m.image || getAvatar(m.name)}" alt="${m.name}" loading="lazy" onerror="this.onerror=null; this.src='${getAvatar(m.name)}';" style="width:32px; height:32px; border-radius:50%; object-fit:cover; filter:grayscale(1) brightness(0.8);" />
                 <div style="display:flex; flex-direction:column; min-width:0;">
                   <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-white); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${m.name}</div>
                   <div style="font-family:var(--font-mono); font-size:0.55rem; color:var(--color-text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${m.role}</div>

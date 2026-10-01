@@ -3,7 +3,7 @@ import { OutlineWord, SectionOverline } from '../components.js';
 
 export function renderContactPage() {
   return `
-    <div class="contact-page">
+    <div class="contact-page" style="padding-bottom: 3rem;">
       <div class="container">
 
         <!-- PAGE HERO -->
@@ -108,33 +108,35 @@ export function renderContactPage() {
                   <button class="topic-chip" style="background:transparent; border:1px solid var(--color-border); color:var(--color-text-dim); padding:0.25rem 0.75rem; font-family:var(--font-mono); font-size:0.7rem; cursor:pointer; transition:all 0.2s;" onclick="document.getElementById('contact-subject').value='Join us';">Join us</button>
                 </div>
 
-                <form id="contact-form" style="display:block;">
+                <div id="contact-success" class="form-success-state">
+                  MESSAGE SENT // WE WILL RESPOND SHORTLY.
+                </div>
+                <form id="contact-form" style="display:block;" onsubmit="event.preventDefault(); document.getElementById('contact-success').classList.add('active'); this.reset();">
                   <div class="cf-row" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
                   <div class="cf-group" style="position:relative;">
                     <input type="text" class="cf-input" id="contact-name" placeholder=" " required style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;" />
                     <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">YOUR NAME</label>
+                    <span class="cf-validation">Required</span>
                   </div>
                   <div class="cf-group" style="position:relative;">
                     <input type="email" class="cf-input" id="contact-email" placeholder=" " required style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;" />
                     <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">EMAIL ADDRESS</label>
+                    <span class="cf-validation">Invalid Email</span>
                   </div>
                 </div>
                 <div class="cf-group" style="position:relative; margin-bottom:1.5rem;">
                   <input type="text" class="cf-input" id="contact-subject" placeholder=" " required style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--color-border); padding:1rem 0; color:var(--color-white); font-family:var(--font-sans); border-radius:0; outline:none;" />
                   <label class="cf-label" style="position:absolute; top:1rem; left:0; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">SUBJECT</label>
+                  <span class="cf-validation">Required</span>
                 </div>
                 <div class="cf-group" style="position:relative; margin-bottom:2rem;">
                   <textarea class="cf-input cf-textarea" id="contact-message" placeholder=" " required maxlength="500" style="width:100%; background:transparent; border:1px solid var(--color-border); padding:1rem; color:var(--color-white); font-family:var(--font-sans); border-radius:0; min-height:120px; outline:none; resize:vertical;" oninput="document.getElementById('char-count').textContent = this.value.length;"></textarea>
                   <label class="cf-label" style="position:absolute; top:1rem; left:1rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); transition:all 0.3s; pointer-events:none;">MESSAGE</label>
+                  <span class="cf-validation" style="left:1rem; bottom:-1.25rem;">Required</span>
                   <div style="text-align:right; margin-top:0.25rem; font-family:var(--font-mono); font-size:0.65rem; color:var(--color-text-dim);"><span id="char-count">0</span>/500</div>
                 </div>
                 
                 <style>
-                  .cf-input:focus + .cf-label, .cf-input:not(:placeholder-shown) + .cf-label {
-                    transform: translateY(-1.5rem);
-                    font-size: 0.65rem;
-                    color: var(--color-white);
-                  }
                   .topic-chip:hover, .topic-chip:focus {
                     background: var(--color-white) !important;
                     color: var(--color-black) !important;
