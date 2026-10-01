@@ -85,12 +85,14 @@
   align-items: flex-end;
 }
 
-/* Meta Section */
 .gallery-cutout-meta {
   position: relative;
   max-width: 50%;
-  background: var(--color-bg); /* Opaque background to hide spiral line underneath */
-  padding: var(--space-lg) 0;
+  background: rgba(10, 10, 10, 0.25);
+  backdrop-filter: blur(8px);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
 }
 
 .gallery-event-cutout--left .gallery-cutout-meta {
@@ -165,8 +167,8 @@
   position: relative;
   border: 1px solid var(--color-border);
   overflow: hidden;
-  background: #000;
-  border-radius: 0;
+  background: rgba(0,0,0,0.4);
+  border-radius: var(--radius-lg);
   /* Width handling based on size */
 }
 

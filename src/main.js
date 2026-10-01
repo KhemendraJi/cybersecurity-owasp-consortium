@@ -73,7 +73,8 @@ function initNavbar() {
   // Scroll effect
   window.addEventListener('scroll', () => {
     if (window.currentRouteName === 'home') {
-      navbar.classList.toggle('navbar--scrolled', window.scrollY > 80);
+      const heroThreshold = window.innerHeight * 0.7;
+      navbar.classList.toggle('navbar--scrolled', window.scrollY > heroThreshold);
     } else {
       navbar.classList.add('navbar--scrolled');
     }
@@ -774,6 +775,12 @@ function renderPage(routeName) {
 
   const renderFn = pages[routeName] || pages.home;
   container.innerHTML = renderFn();
+
+  if (routeName === 'home') {
+    container.style.paddingTop = '0';
+  } else {
+    container.style.paddingTop = '';
+  }
 
   window.currentRouteName = routeName;
   const navbar = document.getElementById('navbar');

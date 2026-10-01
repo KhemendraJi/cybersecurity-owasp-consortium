@@ -1,5 +1,28 @@
 /* ===== NEW ABOUT PAGE STYLES ===== */
 
+/* Hero layout */
+.about-page__hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  margin-bottom: var(--space-3xl);
+}
+
+/* Vision/Mission layout */
+.about-vm-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-3xl);
+}
+
+/* Prevent overflow in hero left column */
+.about-page__hero-left {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
 .about-vm-block {
   margin-bottom: var(--space-2xl);
   padding: var(--space-xl) 0;

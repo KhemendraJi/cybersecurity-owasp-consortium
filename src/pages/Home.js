@@ -51,76 +51,47 @@ export function renderHome() {
 
   return `
     <!-- HERO -->
-    <section class="hero-v2 section" id="hero" style="position:relative; overflow:hidden; min-height:100vh;">
-      <div class="container hero-container" style="position:relative; z-index:1; perspective: 1000px; display:flex; flex-direction:column; justify-content:space-between; padding-top: 2rem; padding-bottom: 2rem; min-height: 100vh;">
+    <section class="hero-v2 section" id="hero" style="position:relative; overflow:hidden; height:100dvh; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+      
+      <div class="container hero-container" style="position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center;">
         
-        <!-- Top Row -->
-        <div class="hero-v2__tagrow" style="display:flex; justify-content:space-between; width:100%; font-family:var(--font-mono); font-size:0.65rem; color:var(--color-text-dim); letter-spacing:0.18em; text-transform:uppercase;">
-          <div class="hero-v2__location"><span style="color:#ff1a1a; animation:blink 1.4s infinite;">●</span> SECURE CONNECTION // MANIT.AC.IN</div>
-          <div class="hero-v2__clock" id="hero-clock">00:00:00 IST</div>
-        </div>
+        <!-- 1: Logo -->
+        <img src="/src/assets/logo.png" alt="OWASP Logo" class="staggered-fade" style="height: 100px; width: auto; margin: 0 auto 20px auto; display: block; filter: drop-shadow(0 0 18px rgba(0,0,0,0.6));" />
+        
 
-        <!-- Center -->
-        <div class="hero-v2__center hero-tilt" style="text-align: center; margin: auto 0; position: relative;">
-          <h1 class="hero-v2__title glitch-container" style="margin:0;">
-            <span class="hero-v2__line1 scramble-text" style="display:block; font-family:'Outfit', 'Arial Black', sans-serif; font-weight:900; font-size:clamp(3rem,8vw,7rem); -webkit-text-stroke: 1.5px #fff; color:transparent; line-height:1; letter-spacing:-0.03em;">CYBERSECURITY</span>
-            <span class="hero-v2__line2" style="display:block; font-family:'Outfit', 'Arial Black', sans-serif; font-weight:900; font-size:clamp(2.5rem,7vw,6.5rem); color:#fff; line-height:1; margin-top:-0.5rem; letter-spacing:-0.03em;">OWASP CONSORTIUM</span>
-          </h1>
-          
-          <p class="hero-v2__subtext typing-text" style="font-family:var(--font-mono); font-size:clamp(0.8rem, 2vw, 1rem); color:rgba(255,255,255,0.8); margin: 1.5rem auto; max-width: 600px; min-height: 3em;" id="hero-subtext"></p>
-
-          <div class="hero-v2__actions" style="display:flex; flex-direction:column; align-items:center; gap: 1.5rem; margin-top: 2rem;">
-            <div class="hero-v2__ctas" style="display:flex; gap: 1rem; justify-content:center;">
-              <a href="#/events" class="btn btn--solid magnetic-btn">EXPLORE EVENTS →</a>
-              <a href="#/about" class="btn btn--outline magnetic-btn">JOIN US</a>
-            </div>
-            <!-- Socials row -->
-            <div id="hero-socials" style="display:flex; gap: 2rem;">
-              <a href="https://instagram.com/owasp_nitb" class="hero-social-link" style="color:#fff; opacity:0.7; transition:0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
-              <a href="https://linkedin.com/company/owaspnitb" class="hero-social-link" style="color:#fff; opacity:0.7; transition:0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-              <a href="https://github.com/owasp-manit" class="hero-social-link" style="color:#fff; opacity:0.7; transition:0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
-              <a href="https://youtube.com/@owasp_manit" class="hero-social-link" style="color:#fff; opacity:0.7; transition:0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
-            </div>
+        
+        <!-- 3: Headline -->
+        <h1 class="hero-v2__title" style="margin:0; padding:0; display:flex; flex-direction:column; gap:16px;">
+          <span class="staggered-fade" style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.25rem, 3.2vw, 2.25rem); letter-spacing: 0.15em; -webkit-text-stroke: 1.5px rgba(255,255,255,0.9); color: rgba(255,255,255,0.06); display:block; line-height:1; animation-delay: 0.1s;">CYBERSECURITY</span>
+          <span class="staggered-fade" style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 8vw, 6rem); letter-spacing: 0.01em; color: #fff; line-height: 1.0; text-shadow: 0 4px 30px rgba(0,0,0,0.7); display:block; animation-delay: 0.3s;">OWASP CONSORTIUM</span>
+        </h1>
+        
+        <!-- 4: Subtext -->
+        <p class="hero-v2__subtext staggered-fade" style="font-family:var(--font-mono); font-size:clamp(0.95rem, 1.4vw, 1.15rem); color:rgba(255,255,255,0.75); margin: 32px auto 40px auto; max-width: 600px; line-height: 1.6; text-shadow: 0 2px 12px rgba(0,0,0,0.85); text-wrap: balance;" id="hero-subtext">The Cybersecurity OWASP Consortium is a community driven by passion for security. We focus on education, practical security research, open-source projects, and community building.</p>
+        
+        <!-- 5: Buttons -->
+        <div class="hero-v2__actions staggered-fade" style="display:flex; flex-direction:column; align-items:center; margin-bottom:40px; width:100%; animation-delay: 0.4s;">
+          <div class="hero-v2__ctas" style="display:flex; flex-wrap:wrap; gap: 16px; justify-content:center; width:100%;">
+            <a href="#/about" class="btn magnetic-btn" style="height: 56px; min-width: 180px; padding: 0 2.5rem; font-size: 0.95rem; letter-spacing: 0.1em; display:inline-flex; align-items:center; justify-content:center; background:#ff1a1a; color:#fff; border:none; border-radius: 4px; transition:all 0.3s; font-family:var(--font-mono); text-transform:uppercase; box-shadow: 0 4px 15px rgba(255,26,26,0.3);" onmouseover="this.style.boxShadow='0 10px 30px rgba(255,26,26,0.6)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 15px rgba(255,26,26,0.3)'; this.style.transform='none'" onfocus="this.style.outline='2px solid #fff'">JOIN THE CLUB</a>
+            <a href="#/events" class="btn magnetic-btn" style="height: 56px; min-width: 180px; padding: 0 2.5rem; font-size: 0.95rem; letter-spacing: 0.1em; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.2); border-radius: 4px; color:#fff; transition:all 0.3s; font-family:var(--font-mono); text-transform:uppercase; backdrop-filter: blur(8px);" onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='rgba(255,255,255,0.4)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.transform='none'" onfocus="this.style.outline='2px solid #fff'">VIEW EVENTS →</a>
           </div>
-        </div>
-
-        <!-- Bottom -->
-        <div class="hero-v2__bottom" style="display:flex; justify-content:space-between; align-items:flex-end; width:100%; position:relative; margin-top:2rem; flex-wrap:wrap; gap: 1rem;">
-          
-          <!-- Terminal panel (bottom-left) -->
-          <div class="hero-v2__terminal os-window hero-tilt panel-bg" style="width:300px; padding:0.75rem; font-family:var(--font-mono); font-size:0.65rem; color:#fff; background: rgba(0,0,0,0.55); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
-            <div style="color:var(--color-text-dim); margin-bottom:0.5rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:0.25rem;">terminal // session</div>
-            <div id="hero-terminal-typing" style="color: #ff1a1a; min-height: 5em; white-space: pre-wrap; line-height: 1.4;"></div>
-          </div>
-
-          <!-- Stats strip -->
-          <div class="hero-v2__stats hero-tilt panel-bg" style="display:flex; gap:2rem; padding:1rem 2rem; background: rgba(0,0,0,0.55); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; opacity: 1;">
-            <div class="hero-v2__stat" style="display:flex; flex-direction:column; align-items:center;">
-              <div class="hero-v2__stat-val" style="font-family:'Outfit',sans-serif; font-weight:900; font-size:1.8rem; color:#fff;"><span class="hero-v2__stat-num" data-target="200">0</span>+</div>
-              <span class="hero-v2__stat-label" style="font-family:var(--font-mono); font-size:0.5rem; letter-spacing:0.1em; color:var(--color-text-dim);">MEMBERS</span>
-            </div>
-            <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
-            <div class="hero-v2__stat" style="display:flex; flex-direction:column; align-items:center;">
-              <div class="hero-v2__stat-val" style="font-family:'Outfit',sans-serif; font-weight:900; font-size:1.8rem; color:#fff;"><span class="hero-v2__stat-num" data-target="15">0</span>+</div>
-              <span class="hero-v2__stat-label" style="font-family:var(--font-mono); font-size:0.5rem; letter-spacing:0.1em; color:var(--color-text-dim);">EVENTS</span>
-            </div>
-            <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
-            <div class="hero-v2__stat" style="display:flex; flex-direction:column; align-items:center;">
-              <div class="hero-v2__stat-val" style="font-family:'Outfit',sans-serif; font-weight:900; font-size:1.8rem; color:#fff;"><span class="hero-v2__stat-num" data-target="5">0</span>+</div>
-              <span class="hero-v2__stat-label" style="font-family:var(--font-mono); font-size:0.5rem; letter-spacing:0.1em; color:var(--color-text-dim);">CTF COMPS</span>
-            </div>
-          </div>
-          
-          <div class="hero-v2__scroll-indicator hero-tilt" style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); display:flex; flex-direction:column; align-items:center; font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.2em; color:var(--color-text-dim);">
-            <span>SCROLL</span>
-            <span style="display:block; margin-top:0.5rem; font-size:1rem; animation:float 2s ease-in-out infinite;">&darr;</span>
-          </div>
-
         </div>
         
+        <!-- 6: Socials -->
+        <div id="hero-socials" class="staggered-fade" style="display:flex; gap: 16px; justify-content:center; animation-delay: 0.5s;">
+          <a href="https://instagram.com/owasp_nitb" aria-label="Instagram" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.85); transition:all 0.2s;" onmouseover="this.style.borderColor='red'; this.style.color='red'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)'; this.style.color='rgba(255,255,255,0.85)'; this.style.transform='none'" onfocus="this.style.outline='2px solid red'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
+          <a href="https://linkedin.com/company/owaspnitb" aria-label="LinkedIn" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.85); transition:all 0.2s;" onmouseover="this.style.borderColor='red'; this.style.color='red'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)'; this.style.color='rgba(255,255,255,0.85)'; this.style.transform='none'" onfocus="this.style.outline='2px solid red'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://github.com/owasp-manit" aria-label="GitHub" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.85); transition:all 0.2s;" onmouseover="this.style.borderColor='red'; this.style.color='red'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)'; this.style.color='rgba(255,255,255,0.85)'; this.style.transform='none'" onfocus="this.style.outline='2px solid red'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+          <a href="https://youtube.com/@owasp_manit" aria-label="YouTube" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.85); transition:all 0.2s;" onmouseover="this.style.borderColor='red'; this.style.color='red'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)'; this.style.color='rgba(255,255,255,0.85)'; this.style.transform='none'" onfocus="this.style.outline='2px solid red'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+    
       </div>
+    
+      <!-- Scroll Cue -->
+      <div class="hero-v2__scroll-indicator" style="position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display:flex; flex-direction:column; align-items:center; font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.2em; color:rgba(255,255,255,0.6); animation: hero-fade-up 1s ease 1.5s forwards; opacity:0;">
+        <span>SCROLL</span>
+        <span style="display:block; margin-top:0.5rem; font-size:1rem; animation:bounce 2s infinite;">&darr;</span>
     </section>
-
     <!-- ABOUT -->
     <section class="about section" id="about-section">
       <div class="container">
@@ -200,7 +171,7 @@ export function renderHome() {
                     style="filter: grayscale(1) brightness(0.8);"
                   />
                 `)}
-                <div class="event-featured__overlay" style="background: rgba(0,0,0,0.6); border: 1px solid var(--color-border); padding: 2rem;">
+                <div class="event-featured__overlay" style="background: rgba(255,255,255,0.02); border: 1px solid var(--color-border); padding: 2rem;">
                   <div class="event-featured__top-row">
                     <span class="event-featured__tag" style="border: 1px solid var(--color-border); padding: 0.25rem 0.5rem;">${featuredEvent.category}</span>
                     <span class="event-featured__badge" style="font-family: var(--font-mono);">[ FEATURED ]</span>
@@ -348,50 +319,10 @@ export function renderFooter() {
     </div>
     <footer class="footer">
       <div class="container">
-        <div class="footer__inner">
-          <!-- Brand block -->
-          <div class="footer__brand">
-            <div class="footer__logo-row">
-              <img class="footer__logo" src="/src/assets/logo.png" alt="OWASP Logo" style="filter: grayscale(1) brightness(1.2);" />
-              <div>
-                <span class="footer__brand-name">CYBERSECURITY OWASP CONSORTIUM</span>
-                <span class="footer__brand-sub">MANIT BHOPAL</span>
-              </div>
-            </div>
-            <p class="footer__tagline">Learn. Build. Secure.</p>
-          </div>
-          
-          <!-- Socials -->
-          <div class="footer__social-section">
-            <h4 class="footer__col-title">Follow Us</h4>
-            <div class="footer__social">
-              <a href="https://instagram.com/owasp_nitb" target="_blank" rel="noopener" class="footer__social-icon" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
-              </a>
-              <a href="https://linkedin.com/company/owaspnitb" target="_blank" rel="noopener" class="footer__social-icon" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-              <a href="https://github.com/owasp-manit" target="_blank" rel="noopener" class="footer__social-icon" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              </a>
-              <a href="https://youtube.com/@owasp_manit" target="_blank" rel="noopener" class="footer__social-icon" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Giant outline OWASP between upper footer and bottom line -->
+        <!-- Giant outline OWASP -->
         <div class="footer__bg-text" aria-hidden="true">OWASP</div>
-
-        <div class="footer__bottom">
-          <span class="footer__copyright">&copy; ${new Date().getFullYear()} Cybersecurity OWASP Consortium, MANIT Bhopal. All rights reserved.</span>
-          <span class="footer__status">
-            <span class="footer__status-dot"></span>
-            ALL SYSTEMS OPERATIONAL
-          </span>
-          <span class="footer__clock" id="footer-clock"></span>
-          <a href="#" class="footer__top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">BACK TO TOP &uarr;</a>
+        <div class="footer__bottom" style="border-top: 1px solid rgba(255,255,255,0.15); padding: 1.5rem var(--container-pad); display:flex; align-items:center; justify-content:center;">
+          <span class="footer__copyright" style="font-family:var(--font-mono); font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:0.06em; text-align:center;">&copy; ${new Date().getFullYear()} Cybersecurity OWASP Consortium, MANIT Bhopal. All rights reserved.</span>
         </div>
       </div>
     </footer>

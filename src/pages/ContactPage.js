@@ -67,7 +67,7 @@ export function renderContactPage() {
             </div>
 
             <!-- Map -->
-            <div class="contact-map reveal-left" style="--delay:0.3s; flex:1; display:flex; flex-direction:column; min-height:300px; border:1px solid var(--color-border); background:rgba(255,255,255,0.02); overflow:hidden;">
+            <div class="contact-map reveal-left" style="--delay:0.3s; flex:1; display:flex; flex-direction:column; min-height:300px; border:1px solid var(--color-border); background:rgba(0,0,0,0.2); overflow:hidden;">
               <div class="contact-map__label" style="padding:1rem; border-bottom:1px solid var(--color-border); font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-dim); display:flex; align-items:center; gap:0.5rem;">
                 <span class="contact-map__dot" style="width:8px; height:8px; background:var(--color-white); display:inline-block;"></span>
                 SYS // MANIT.AC.IN — CAMPUS MAP
@@ -91,7 +91,7 @@ export function renderContactPage() {
           <!-- RIGHT: Contact Form -->
           <div class="contact-form-col reveal-right" style="flex:1;">
             <div class="os-window" style="background:var(--color-black); border:1px solid var(--color-border); overflow:hidden;">
-              <div class="os-window__header" style="background:rgba(255,255,255,0.03); border-bottom:1px solid var(--color-border); display:flex; align-items:center; padding:0 1rem; height:32px; gap:0.5rem;">
+              <div class="os-window__header" style="background:transparent; border-bottom:1px solid var(--color-border); display:flex; align-items:center; padding:0 1rem; height:32px; gap:0.5rem;">
                 <div class="os-window__dots" style="display:flex; gap:6px;">
                   <div class="os-window__dot"></div>
                   <div class="os-window__dot"></div>
