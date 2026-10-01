@@ -62,14 +62,14 @@ export function renderHome() {
 
         <!-- Center -->
         <div class="hero-v2__center hero-tilt" style="text-align: center; margin: auto 0; position: relative;">
-          <h1 class="hero-v2__title glitch-container" style="margin:0;">
-            <span class="hero-v2__line1 scramble-text" style="display:block; font-family:'Outfit', 'Arial Black', sans-serif; font-weight:900; font-size:clamp(3rem,8vw,7rem); -webkit-text-stroke: 1.5px #fff; color:transparent; line-height:1; letter-spacing:-0.03em;">CYBERSECURITY</span>
-            <span class="hero-v2__line2" style="display:block; font-family:'Outfit', 'Arial Black', sans-serif; font-weight:900; font-size:clamp(2.5rem,7vw,6.5rem); color:#fff; line-height:1; margin-top:-0.5rem; letter-spacing:-0.03em;">OWASP CONSORTIUM</span>
+          <h1 class="hero-v2__title glitch-container" style="margin:0; overflow-wrap:break-word; word-break:break-word;">
+            <span class="hero-v2__line1 scramble-text" style="display:block; font-family:'Outfit', 'Arial Black', sans-serif; font-weight:900; font-size:clamp(2rem,8vw,7rem); -webkit-text-stroke: 1.5px #fff; color:transparent; line-height:1; letter-spacing:-0.03em; white-space:normal; word-break:break-word;">CYBERSECURITY</span>
+            <span class="hero-v2__line2" style="display:block; font-family:'Outfit', 'Arial Black', sans-serif; font-weight:900; font-size:clamp(1.8rem,7vw,6.5rem); color:#fff; line-height:1; margin-top:-0.5rem; letter-spacing:-0.03em; white-space:normal; word-break:break-word;">OWASP CONSORTIUM</span>
           </h1>
           
           <p class="hero-v2__subtext typing-text" style="font-family:var(--font-mono); font-size:clamp(0.8rem, 2vw, 1rem); color:rgba(255,255,255,0.8); margin: 1.5rem auto; max-width: 600px; min-height: 3em;" id="hero-subtext"></p>
 
-          <div class="hero-v2__actions" style="display:flex; flex-direction:column; align-items:center; gap: 1.5rem; margin-top: 2rem;">
+          <div class="hero-v2__actions" style="display:flex; flex-direction:column; align-items:center; gap: 1rem; margin-top: 1.5rem;">
             <div class="hero-v2__ctas" style="display:flex; gap: 1rem; justify-content:center;">
               <a href="#/events" class="btn btn--solid magnetic-btn">EXPLORE EVENTS →</a>
               <a href="#/about" class="btn btn--outline magnetic-btn">JOIN US</a>
@@ -85,7 +85,7 @@ export function renderHome() {
         </div>
 
         <!-- Bottom -->
-        <div class="hero-v2__bottom" style="display:flex; justify-content:space-between; align-items:flex-end; width:100%; position:relative; margin-top:2rem; flex-wrap:wrap; gap: 1rem;">
+        <div class="hero-v2__bottom" style="display:flex; justify-content:space-between; align-items:flex-end; width:100%; position:relative; margin-top:2rem; flex-wrap:wrap; gap: 1rem; padding-bottom: 2rem;">
           
           <!-- Terminal panel (bottom-left) -->
           <div class="hero-v2__terminal os-window hero-tilt panel-bg" style="width:300px; padding:0.75rem; font-family:var(--font-mono); font-size:0.65rem; color:#fff; background: rgba(0,0,0,0.55); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
@@ -348,50 +348,10 @@ export function renderFooter() {
     </div>
     <footer class="footer">
       <div class="container">
-        <div class="footer__inner">
-          <!-- Brand block -->
-          <div class="footer__brand">
-            <div class="footer__logo-row">
-              <img class="footer__logo" src="/src/assets/logo.png" alt="OWASP Logo" style="filter: grayscale(1) brightness(1.2);" />
-              <div>
-                <span class="footer__brand-name">CYBERSECURITY OWASP CONSORTIUM</span>
-                <span class="footer__brand-sub">MANIT BHOPAL</span>
-              </div>
-            </div>
-            <p class="footer__tagline">Learn. Build. Secure.</p>
-          </div>
-          
-          <!-- Socials -->
-          <div class="footer__social-section">
-            <h4 class="footer__col-title">Follow Us</h4>
-            <div class="footer__social">
-              <a href="https://instagram.com/owasp_nitb" target="_blank" rel="noopener" class="footer__social-icon" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
-              </a>
-              <a href="https://linkedin.com/company/owaspnitb" target="_blank" rel="noopener" class="footer__social-icon" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-              <a href="https://github.com/owasp-manit" target="_blank" rel="noopener" class="footer__social-icon" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              </a>
-              <a href="https://youtube.com/@owasp_manit" target="_blank" rel="noopener" class="footer__social-icon" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Giant outline OWASP between upper footer and bottom line -->
+        <!-- Giant outline OWASP -->
         <div class="footer__bg-text" aria-hidden="true">OWASP</div>
-
-        <div class="footer__bottom">
-          <span class="footer__copyright">&copy; ${new Date().getFullYear()} Cybersecurity OWASP Consortium, MANIT Bhopal. All rights reserved.</span>
-          <span class="footer__status">
-            <span class="footer__status-dot"></span>
-            ALL SYSTEMS OPERATIONAL
-          </span>
-          <span class="footer__clock" id="footer-clock"></span>
-          <a href="#" class="footer__top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">BACK TO TOP &uarr;</a>
+        <div class="footer__bottom" style="border-top: 1px solid rgba(255,255,255,0.15); padding: 1.5rem var(--container-pad); display:flex; align-items:center; justify-content:center;">
+          <span class="footer__copyright" style="font-family:var(--font-mono); font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:0.06em; text-align:center;">&copy; ${new Date().getFullYear()} Cybersecurity OWASP Consortium, MANIT Bhopal. All rights reserved.</span>
         </div>
       </div>
     </footer>
