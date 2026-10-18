@@ -5,7 +5,6 @@
 
 export const EMAIL = 'owasp.chap.manit@gmail.com'
 export const FORM_ENDPOINT = ''        // Formspree / Web3Forms POST URL
-export const REG_URL = '/register'    // Registration page route
 export const VENUE = 'Auditorium, MANIT'
 
 export const SOCIALS = [
@@ -17,7 +16,6 @@ export const SOCIALS = [
 
 // ── Upcoming Events ───────────────────────────────────────────
 export const events = [
-  { title: 'CYBERPULSE', date: '2026-10-10', tag: 'Workshop', place: 'Auditorium, MANIT', desc: 'Ethical Hacking & Web Security Workshop. Dive into real-world hacking demos, bug bounty basics, AI in cybersecurity, and more.' },
   { title: 'NetShield Workshop', date: '2026-10-15', tag: 'Workshop', place: 'Auditorium, MANIT', desc: 'Practical exposure to ethical hacking, networking, and system defense.' },
   { title: 'Capture The Flag (Internal)', date: '2026-11-08', tag: 'CTF', place: 'Auditorium, MANIT', desc: 'Test your skills across web exploitation, crypto, forensics, and reverse engineering.' },
   { title: 'Linux for Security Professionals', date: '2026-11-19', tag: 'Tech Talk', place: 'Auditorium, MANIT', desc: 'Hands-on session on Linux fundamentals, bash scripting, and command-line security tools.' },
@@ -26,6 +24,7 @@ export const events = [
 
 // ── Past Events ───────────────────────────────────────────────
 export const past = [
+  { title: 'CYBERPULSE', date: '2026-10-10', tag: 'Workshop', place: 'Auditorium, MANIT', desc: 'Ethical Hacking & Web Security Workshop. Dive into real-world hacking demos, bug bounty basics, AI in cybersecurity, and more.' },
   { title: 'CyberHunter 2.0',  date: '2026-02-28', tag: 'Competition' },
   { title: 'Noobathon',        date: '2025-10-18', tag: 'Hackathon'   },
   { title: 'Cyber Hunter 1.0', date: '2025-09-15', tag: 'Initiative'  },
